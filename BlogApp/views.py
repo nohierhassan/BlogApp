@@ -7,3 +7,17 @@ def home(request):
 	
 	}
 	return render(request ,'BlogApp/home.html' , context)
+
+def register(request):
+	context = {
+	
+	}
+	return render(request ,'BlogApp/register.html' , context)
+
+
+def login(request):
+	context = {
+	
+	}
+	return render(request ,'BlogApp/login.html' , context)
+
