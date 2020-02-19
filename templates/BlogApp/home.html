@@ -1,5 +1,9 @@
-{% load static %}
+{%extends 'home/base.html'%}
+
+
 <html>
+{%block main_block %}
+{% load static %}
 	<head> 
 
 	</head>
@@ -8,5 +12,7 @@
 
 <!-- <link rel="stylesheet" type="text/css" href="{% static 'img/myimg.jpg' %}" /> -->
 <img src="{% static 'img/myimg.jpg' %}">
+{%endblock%}
 </body>
+
 </html>
