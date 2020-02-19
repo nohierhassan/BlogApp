@@ -11,6 +11,13 @@
 
 <!-- <link rel="stylesheet" type="text/css" href="{% static 'img/myimg.jpg' %}" /> -->
 <img src="{% static 'img/myimg.jpg' %}">
+
+{% if user.is_authenticated %}
+<h2>Your name is {{user.username}}</h2>
+{% else %}
+<h2>you are not logged in </h2>
+{% endif%}
+
 {%endblock%}
 </body>
 

@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login as authlogin
 # Create your views here.
 
 def home(request):
@@ -31,10 +33,24 @@ def blocked(request):
 	return render (request, 'BlogApp/blocked.html', context)
 
 def register(request):
+	if request.method == 'POST':
+
+		form = UserCreationForm(request.POST)
+		if form.is_valid():
+			form.save()
+			username = form.cleaned_data['username']
+			password = form.cleaned_data['password1']
+			user = authenticate(username = username, password = password)
+			authlogin(request,user)
+			return redirect('home')
+	else:
+
+		form = UserCreationForm()
 	context = {
-	
+
+		'form':form
 	}
-	return render(request ,'BlogApp/register.html' , context)
+	return render(request ,'registration/register.html' , context)
 
 
 def login(request):
@@ -42,3 +58,4 @@ def login(request):
 	
 	}
 	return render(request ,'BlogApp/login.html' , context)
+

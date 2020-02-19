@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Login</title>	
+</head>
+<body>
+	{% if form.errors%}
+		<p>There is something went wrong with what you have entered</p>
+	{% endif %}
+
+	<h1>Registeration Page </h1>
+	<form method="POST" action="{% url 'register' %}">
+		{% csrf_token %}
+		{% if form.error%}
+			<p> There are errors in the form
+		{% endif %}
+
+		{{ form }}
+
+		<p><input type="submit" value="Register"><p>
+		
+	</form>
+</body>
+
+</html>
