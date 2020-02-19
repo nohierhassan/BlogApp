@@ -8,6 +8,7 @@ def home(request):
 	}
 	return render(request ,'BlogApp/home.html' , context)
 
+
 def post(request,id):
 	# post = post.objects.get(id=id)
 	context = {
@@ -28,3 +29,16 @@ def blocked(request):
 
 	}
 	return render (request, 'BlogApp/blocked.html', context)
+
+def register(request):
+	context = {
+	
+	}
+	return render(request ,'BlogApp/register.html' , context)
+
+
+def login(request):
+	context = {
+	
+	}
+	return render(request ,'BlogApp/login.html' , context)
