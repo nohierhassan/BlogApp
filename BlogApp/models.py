@@ -2,46 +2,51 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
+
 class Category(models.Model):
-	categoryId = models.IntegerField(primary_key=True)
-    name=models.CharField()
+    categoryId = models.IntegerField(primary_key=True)
+    name=models.CharField(max_length=30)
+
+class UserModel(AbstractUser):
+    user=models.ManyToManyField(Category)
+
+
+class Tag(models.Model):
+    tagId=models.IntegerField(primary_key=True)
+    tagname=models.CharField(max_length=50)
+
+
 
 class Post(models.Model):
     postId=models.IntegerField(primary_key=True)
     title=models.CharField(max_length=30)
-    content=models.charField()
-    date=models.DateField(_(""), auto_now=True, auto_now_add=False)
-    userId=models.ForeignKey(userId)
-    categoryId=models.ForeignKey(categoryId)
-    image=models.ImageField(_(""), upload_to=None, height_field=None, width_field=None, max_length=None)
-    
-class Tag(models.Model):
-    tagId=models.IntegerField(primary_key=True)
-    tagname
+    content=models.CharField(max_length=300)
+    date=models.DateField(("Default"), auto_now=True, auto_now_add=False)
+    id=models.ForeignKey(UserModel,on_delete=models.DO_NOTHING)
+    categoryId=models.ForeignKey(Category,on_delete=models.DO_NOTHING)
+    image=models.ImageField(("Default"), upload_to=None, height_field=None, width_field=None, max_length=None)
+    tags=models.ManyToManyField(Tag)
+
 
 class Comment(models.Model):
     commentId=models.IntegerField(primary_key=True)
-    postId=models.ForeignKey(postId)
-    content=models.CharField()
-    date=models.DateField(_(""), auto_now=True, auto_now_add=False)
+    postId=models.ForeignKey(Post,on_delete=models.DO_NOTHING)
+    content=models.CharField(max_length=150)
+    date=models.DateTimeField(("Default"), auto_now=True, auto_now_add=False)
 
-# class ForbiddenWord(models.Model):
-#     fId=models.IntegerField(primary_key=True)
-#     word=models.CharField()
-
-class Users(AbstractUser):
-    isAdmin=models.Boolea­nField()
-    isBlocked=models.BooleanField()
+class ForbiddenWord(models.Model):
+    fId=models.IntegerField(primary_key=True)
+    word=models.CharField(max_length=20)
 
 
 
-class tagPost(models.Model):
-    postId=models.ForeignKey(postId)
-    tagId=models.ForeignKey(postId)
+# class tagPost(models.Model):
+#     postId=models.ForeignKey(postId)
+#     tagId=models.ForeignKey(postId)
 
-class categoryUser(models.Model):
-    categoryId=models.ForeignKey(categoryId)
-    userId=models.ForeignKey(userId)
+# class categoryUser(models.Model):
+#     categoryId=models.ForeignKey(categoryId)
+#     Id=models.ForeignKey(User)
 
     
 

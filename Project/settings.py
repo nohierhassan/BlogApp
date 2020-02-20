@@ -104,7 +104,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 ##to add user
-AUTH_USER_MODEL = 'core.User'
+AUTH_USER_MODEL = 'BlogApp.UserModel'
 
 
 # Internationalization

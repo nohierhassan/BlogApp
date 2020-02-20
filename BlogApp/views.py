@@ -10,13 +10,6 @@ def home(request):
 	}
 	return render(request ,'BlogApp/home.html' , context)
 
-<<<<<<< HEAD
-def register(request):
-	context = {
-	
-	}
-	return render(request ,'BlogApp/register.html' , context)
-=======
 
 def post(request,id):
 	# post = post.objects.get(id=id)
@@ -58,7 +51,6 @@ def register(request):
 		'form':form
 	}
 	return render(request ,'registration/register.html' , context)
->>>>>>> 115849993d4e95e62b0c9902057d02de5d901ee8
 
 
 def login(request):
