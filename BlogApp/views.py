@@ -59,3 +59,5 @@ def login(request):
 	}
 	return render(request ,'BlogApp/login.html' , context)
 
+
+
