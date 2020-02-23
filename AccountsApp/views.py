@@ -51,5 +51,29 @@ def LoginVeiw(request):
 	context['form'] = form
 	return render(request, 'registration/login.html', context)
 
+def EditView(request):
+
+	if not request.user.is_authenticated:
+		return redirect("login")
+
+	context = {}
+
+	if request.POST:
+		form = RegistrationForm(request.POST, instance=request.user)
+		if form.is_valid():
+			form.save()
+			login(request, request.user)
+			return redirect("home")
+	else:
+		form = RegistrationForm(
+				initial= {
+					"email": request.user.email,
+					"username": request.user.username,
+				}
+			)
+	context['form'] = form
+	return render(request, 'registration/edit.html', context)
+
+
 
 
