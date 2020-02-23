@@ -2,13 +2,19 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login as authlogin
+from .models import Post
 # Create your views here.
 
 def home(request):
-	context = {
+
+	topPosts=Post.objects.all().order_by('date')[:5]
+	orderedPosts =reversed(topPosts)
 	
+	context ={
+		
+	"orderedPosts":orderedPosts
 	}
-	return render(request ,'BlogApp/home.html' , context)
+	return render(request ,'BlogApp/index.html' , context)
 
 
 def post(request,id):
