@@ -76,35 +76,41 @@
                             <table class="table">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">First</th>
-                                        <th scope="col">Last</th>
-                                        <th scope="col">Handle</th>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Content</th>
+                                        <th scope="col">date</th>
+                                        <th scope="col">Created User</th>
+                                        <th scope="col">Category</th>
+                                        <th scope="col">Image</th>
+                                        <th scope="col">Edit</th>
+                                        <th scope="col">Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% for pt in all_posts  %}
                                     <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
+                                        <td>{{pt.postTitle}}</td>
+                                        <td>{{pt.postBody}}</td>
+                                        <td>{{pt.postDatePublished}}</td>
+                                        <td>{{pt.postDateUpdated}}</td>
+                                        <td>{{pt.postSlug}}</td>
+                                        <td>{{pt.postAuthor}}</td>
+                                        <td>{{pt.postCategory}}</td>
+                                        <td>{{pt.postImage}}</td>
+                                        <td>{{pt.postTag}}</td>
+                                        <td><a href="editPost/{{pt.postId}}">EDIT</a></td>
+                                        <td><a href="deletePost/{{pt.postId}}">DELETE</a></td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
+                                    {% endfor%}
                                 </tbody>
                             </table>
                         </div>
                     </div>
+                    <a href="addPost">
+                        <button type="button" class="btn btn-success"> 
+                            <i class="mdi mdi-tooltip-outline-plus"></i>
+                            Add Post</button>
+                        </a>
                 </div>
             </div>
             <!-- ============================================================== -->

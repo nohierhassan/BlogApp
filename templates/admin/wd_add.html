@@ -41,7 +41,7 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-5 align-self-center">
-                        <h4 class="page-title">Categories</h4>
+                        <h4 class="page-title">Words Control</h4>
                     </div>
                     <div class="col-7 align-self-center">
                         <div class="d-flex align-items-center justify-content-end">
@@ -50,7 +50,7 @@
                                     <li class="breadcrumb-item">
                                         <a href="http://127.0.0.1:8000/adminUser/home/">Home</a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">Categories</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Words Control</li>
                                 </ol>
                             </nav>
                         </div>
@@ -66,39 +66,11 @@
             <div class="container-fluid">
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
-                <!-- ============================================================== -->
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title"><b>Categories</b></h4>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th scope="col">Category</th>
-                                        <th scope="col">Edit</th>
-                                        <th scope="col">Delete</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for cat in all_categories  %}
-                                    <tr>
-                                        <td>{{cat.categoryName}}</td>
-                                        <td><a href="editCategory/{{cat.categoryId}}">EDIT</a></td>
-                                        <td><a href="deleteCategory/{{cat.categoryId}}">DELETE</a></td>
-                                    </tr>
-                                    {% endfor%}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <a href="addCategory">
-                        <button type="button" class="btn btn-success"> 
-                            <i class="mdi mdi-tooltip-outline-plus"></i>
-                            Add Category</button>
-                        </a>
-                </div>
+                <form method="POST">
+                    {{wd_form.as_ul}}{%csrf_token%}
+                    <br>
+                    <button type="submit" class="btn btn-success">Save</button>
+                </form>
             </div>
             <!-- ============================================================== -->
             <!-- End Container fluid  -->

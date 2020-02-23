@@ -38,6 +38,7 @@ class Post(models.Model):
     postDatePublished           = models.DateTimeField(auto_now_add=True, verbose_name="date published")
     postDateUpdated             = models.DateTimeField(auto_now=True, verbose_name="date updated")
     postAuthor                  = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    postCategory                = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
     postSlug                    = models.SlugField(blank=True, unique=True)
     postTag                     = models.ManyToManyField(Tag, blank=True)
 
@@ -51,6 +52,7 @@ def submission_delete(sender, instance, **kwargs):
 def pre_save_blog_post_receiver(sender, instance, *args, **kwargs):
     if not instance.slug:
         instance.slug = slugify(instance.author.username + "-" + instance.title)
+
 
 pre_save.connect(pre_save_blog_post_receiver, sender=Post)
 
