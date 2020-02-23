@@ -53,11 +53,11 @@ def register(request):
 	return render(request ,'registration/register.html' , context)
 
 
-def login(request):
-	context = {
+# def login(request):
+# 	context = {
 	
-	}
-	return render(request ,'BlogApp/login.html' , context)
+# 	}
+# 	return render(request ,'BlogApp/login.html' , context)
 
 
 
