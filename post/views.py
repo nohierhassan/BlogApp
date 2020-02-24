@@ -51,9 +51,16 @@ def post(request, post_id):
 	}
 	return render (request,'post/post.html',context)
 
-# def view_category(request, slug):
-#     category = get_object_or_404(Category, slug=slug)
-#     return render(request,'view_category.html', {
-#         'category': category,
-#         'posts': Post.objects.filter(category=category)[:5]
-#     })
+def category_detail(request, cat_id):
+    category = get_object_or_404(Category,pk=cat_id)
+    post= Post.objects.filter(postCategory=cat_id)
+    return render(request,'post/list.html', {
+        'category': category,
+        'post':post,
+    })
+
+
+
+
+
+

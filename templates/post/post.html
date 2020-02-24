@@ -3,7 +3,7 @@
 {%block main_block %}
 {% load static %}
   <head>
-    <title>{{post.postTitle}}</title>
+    <title>{{post.title}}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -41,25 +41,25 @@
 
 							<!-- POST: -->
 				<div>
-				<h1 class="mb-3">{{post.postTitle}}</h1> <!-- POST TITLE -->
+				<h1 class="mb-3">{{post.title}}</h1> <!-- POST TITLE -->
 
-				<h5>{{post.postCategory.categoryName}}</h5> 	<!-- Category  -->
+				<h5>{{post.categoryId.name}}</h5> 	<!-- Category  -->
 				</div>
 					      
 <p>
 <!-- POST IMAGE -->
-<img src="{{post.postImage.url}}" alt="" class="img-fluid">
+<img src="{{post.image.url}}" alt="" class="img-fluid">
     </p>
 
      <!-- POST CONTENT -->
-    <p>{{post.postBody}}</p>
+    <p>{{post.content}}</p>
 
 
     <!-- TAGS RELATED TO THE POST --> 
 		            <div class="tag-widget post-tag-container mb-5 mt-5">
 		              <div class="tagcloud">
 		              	
-		                <a href="#" class="tag-cloud-link">{{post.postTag.all}}</a>
+		                <a href="#" class="tag-cloud-link">{{post.tags.all}}</a>
 		                <a href="#" class="tag-cloud-link">Sport</a>
 		                <a href="#" class="tag-cloud-link">Tech</a>
 		                <a href="#" class="tag-cloud-link">Travel</a>
@@ -88,9 +88,9 @@
 		                    <img src="{% static '/images/comments.png' %}" alt="Image placeholder">
 		                  </div>
 		                  <div class="comment-body">
-		                    <h3>{{comment.commentAuthor}}</h3> <!-- COMMENT WRITER -->
-		                    <div class="meta">{{ comment.commentDate }}</div><!--  COMMENT DATE AND TIME  -->
-		                    <p>{{comment.commentContent}}</p><!--  COMMENT CONTENT -->
+		                    <h3>{{comment.name}}</h3> <!-- COMMENT WRITER -->
+		                    <div class="meta">{{ comment.created_on }}</div><!--  COMMENT DATE AND TIME  -->
+		                    <p>{{comment.body}}</p><!--  COMMENT CONTENT -->
 		                    <p><a href="#" class="reply">Reply</a></p>
 		                  </div>
 		                </li>
@@ -103,8 +103,8 @@
  <div class="card-body">
         <h3>Leave a comment</h3>
         <form method="post" style="margin-top: 1.3em;">
-          <!-- {{ comment_form.as_p }}
-          {% csrf_token %} -->
+          {{ comment_form.as_p }}
+          {% csrf_token %}
           <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
         </form>
       </div>
@@ -129,7 +129,7 @@
 	              <ul class="categories">
 	              	{% for category in all_categories %}
 
-	                <li><a href="#">{{category.categoryName}}</a></li>
+	                <li><a href="{% url 'list' category.categoryId %}">{{category.name}}</a></li> 
 	                {% endfor %}
 	              
 	              </ul>
@@ -139,7 +139,7 @@
 	              <h3 class="sidebar-heading">Tags</h3>
 	              <ul class="tagcloud">
 	              	{% for tag in all_Tags %}
-	                <a href="#" class="tag-cloud-link">{{tag.tagName}}</a>
+	                <a href="#" class="tag-cloud-link">{{tag.tagname}}</a>
 	                {% endfor %}
 	              </ul>
 	            </div>
