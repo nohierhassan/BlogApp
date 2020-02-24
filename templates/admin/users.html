@@ -90,18 +90,33 @@
                                 </thead>
                                 <tbody>
                                     {% for us in all_users  %}
-                                    <tr>
-                                        <td>{{us.username}}</td>
-                                        <td>{{us.email}}</td>
-                                        <td>{{us.date_joined}}</td>
-                                        <td>{{us.last_login}}</td>
-                                        <td>{{us.is_admin}}</td>
-                                        <td>{{us.is_active}}</td>
-                                        <td>{{us.is_staff}}</td>
-                                        <td>{{us.is_superuser}}</td>
-                                        <td><a href="editUser/{{us.id}}">EDIT</a></td>
-                                        <td><a href="deleteUser/{{us.id}}">DELETE</a></td>
-                                    </tr>
+                                         {% if us.is_admin is True %}
+                                            <tr>
+                                                <th scope="row">Danger</th>
+                                                <td>{{us.username}}</td>
+                                                <td>{{us.email}}</td>
+                                                <td>{{us.date_joined}}</td>
+                                                <td>{{us.last_login}}</td>
+                                                <td>{{us.is_active}}</td>
+                                                <td>{{us.is_staff}}</td>
+                                                <td>{{us.is_superuser}}</td>
+                                                <td><a href="editUser/{{us.id}}">EDIT</a></td>
+                                                <td><a href="deleteUser/{{us.id}}">DELETE</a></td>
+                                            </tr>
+                                        {% else %}
+                                        <tr>
+                                            <td>{{us.username}}</td>
+                                            <td>{{us.email}}</td>
+                                            <td>{{us.date_joined}}</td>
+                                            <td>{{us.last_login}}</td>
+                                            <td>{{us.is_admin}}</td>
+                                            <td>{{us.is_active}}</td>
+                                            <td>{{us.is_staff}}</td>
+                                            <td>{{us.is_superuser}}</td>
+                                            <td><a href="editUser/{{us.id}}">EDIT</a></td>
+                                            <td><a href="deleteUser/{{us.id}}">DELETE</a></td>
+                                        </tr>
+                                        {% endif %}
                                     {% endfor%}
                                 </tbody>
                             </table>

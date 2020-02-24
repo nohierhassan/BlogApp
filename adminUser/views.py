@@ -92,6 +92,7 @@ def addCategory(request):
 		context = {'cat_form': cat_form}
 		return render(request,'admin/cat_add.html',context)
 
+
 def addPost(request):
 	post_form = PostForm()
 	if(request.method == 'POST'):
@@ -128,5 +129,24 @@ def addUser(request):
 	else:
 		context = {'user_form': user_form}
 		return render(request,'admin/user_add.html',context)
+
+def deleteUser(request,num):
+	us = ExtendedUser.objects.get(id = num)
+	us.delete()
+	return HttpResponseRedirect('/adminUser/users/') 
+
+
+def editUser(request,num):
+    us = ExtendedUser.objects.get(id = num)
+    if(request.method == 'POST'):
+        user_form = ExtendedUser(request.POST, instance = us)
+        if user_form.is_valid():
+            user_form.save()
+            return HttpResponseRedirect('/adminUser/users/') 
+    else:
+        user_form = PostForm(instance = us)
+        context = {'user_form':user_form}
+        return render(request,'admin/user_add.html',context)
+
 
 
