@@ -4,25 +4,29 @@ from BlogApp.models import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login as authlogin
 from adminUser.forms import *
+from AccountsApp.models import ExtendedUser
 # Create your views here.
 def home(request):
 	context= {
 	
 	}
 	return render(request ,'admin/index.html' , context)
+
 def users(request):
-	context= {
-	
-	}
+	users = ExtendedUser.objects.all()
+	context = {'all_posts' : users}
 	return render(request ,'admin/users.html' , context)
+
 def posts(request):
 	posts = Post.objects.all()
 	context = {'all_posts' : posts}
 	return render(request ,'admin/posts.html' , context)
+
 def categories(request):
 	category = Category.objects.all()
 	context = {'all_categories' : category}
 	return render(request ,'admin/categories.html' , context)
+
 def forbiddenWords(request):
 	words = ForbiddenWord.objects.all()
 	context = {'all_words' : words}
@@ -114,5 +118,15 @@ def editPost(request,num):
         post_form = PostForm(instance = pt)
         context = {'post_form':post_form}
         return render(request,'admin/post_add.html',context)
+
+def addUser(request):
+	user_form = UserForm()
+	if(request.method == 'POST'):
+		if user_form.is_valid:
+			user_form.save()
+			return HttpResponseRedirect('/adminUser/users/')
+	else:
+		context = {'user_form': user_form}
+		return render(request,'admin/user_add.html',context)
 
 

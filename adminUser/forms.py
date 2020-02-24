@@ -1,5 +1,6 @@
 from BlogApp.models import *
 from django import forms
+from AccountsApp.models import ExtendedUser
 
 class WordForm(forms.ModelForm):
     class Meta:
@@ -31,6 +32,18 @@ class PostForm(forms.ModelForm):
                     'postTag': forms.TextInput( attrs={'class': 'form-control '}),
                     'postSlug': forms.TextInput( attrs={'class': 'form-control '}),
 
+                    }
+
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = ExtendedUser
+        fields = ('username','password','email','is_admin')
+        widgets = {
+                    'username' : forms.TextInput( attrs={'class': 'form-control '}),
+                    'password' : forms.PasswordInput( attrs={'class': 'form-control '}),
+                    'email' : forms.EmailInput( attrs={'class': 'form-control '}),
+                    'is_admin' : forms.NullBooleanSelect( attrs={'class': 'form-control '}),
                     }
 
 
