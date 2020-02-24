@@ -59,11 +59,9 @@
 		            <div class="tag-widget post-tag-container mb-5 mt-5">
 		              <div class="tagcloud">
 		              	
-		                <a href="#" class="tag-cloud-link">{{post.tags.all}}</a>
-		                <a href="#" class="tag-cloud-link">Sport</a>
-		                <a href="#" class="tag-cloud-link">Tech</a>
-		                <a href="#" class="tag-cloud-link">Travel</a>
-		              
+				{% for tag in post.postTag.all %}
+		                	<a href="#" class="tag-cloud-link">{{ tag }}</a>
+				{% endfor %}		              
 		              </div>
 		            </div>
 

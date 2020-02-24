@@ -32,22 +32,22 @@
 				<div class="d-flex justify-content-center" >
 					<div class="row px-md-4">
 						<div class="title" style="padding:5%;">
-						<h1> category</h1> 
+						<h1> {{category.name}}</h1> 
 						</div>
 					
 <!-- POSTS -->
-{% for post in category %}
+{% for p in post %}
 						<div class="col-md-12">
 							<div class="blog-entry ftco-animate d-md-flex">
-								<a href="{% url 'post' post.pk %}" class="img img-2" style="background-image: url('{{post.postImage.url}}');"></a>
+								<a href="{% url 'post' post.pk %}" class="img img-2" style="background-image: url('{{post.image.url}}');"></a>
 								<div class="text text-2 pl-md-4">
-		              <h3 class="mb-2"><a href="{% url 'post' post.pk %}">{{post.postTitle}}</a></h3>
+		              <h3 class="mb-2"><a href="{% url 'post' post.pk %}">{{p.title}}</a></h3>
 		              <div class="meta-wrap">
 										<p class="meta">
-		              		<span><i class="icon-calendar mr-2"></i>{{post.postDatePublished}}</span>
+		              		<span><i class="icon-calendar mr-2"></i>{{p.date}}</span>
 
 		              	</p>
-	              	</div>
+	              	</div>  
 		              <p class="mb-4">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
 		              <p><a href="{% url 'post' post.pk %}" class="btn-custom">Read More <span class="ion-ios-arrow-forward"></span></a></p>
 		            </div>
