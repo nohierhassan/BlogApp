@@ -12,6 +12,7 @@ urlpatterns = [
     path('category/', views.category),
     path('blocked/', views.blocked),
     path('register/', views.register,name = 'register'),	
-    path('login/', views.login),		
+    path('login/', views.login),	
+    path('home/search/',views.search),
 
 ]

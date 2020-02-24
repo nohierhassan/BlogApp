@@ -3,24 +3,55 @@ from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login as authlogin
 from .models import Post
+from django.db.models import Q
 # Create your views here.
 
 def home(request):
 
-	topPosts=Post.objects.all().order_by('date')[:5]
-	orderedPosts =reversed(topPosts)
+	# query: get all posts
+	topPosts= Post.objects.all().order_by('date')[:5] 
 	
+	# query: get count of comments
+
+	# query to get path of image or image name 
+	
+
 	context ={
-		
-	"orderedPosts":orderedPosts
+	"topPosts": topPosts
 	}
 	return render(request ,'BlogApp/index.html' , context)
 
 
 def post(request,id):
 	# post = post.objects.get(id=id)
+	# query = request.GET.get("q,None")
+	# qs = Post.objects.all()
+	# if query is not None:
+	# 	qs = qs.filter(
+	# 		Q(title__icontains=query)
+
+	# 	).distinct()
+	
+
 	context = {
-				'id':id
+				'id':id,
+				#'object_list': qs,
+	}
+
+	return render(request,'BlogApp/post.html',context)
+
+def search(request):
+	query = request.GET.get("query")
+	#qs = Post.objects.all()
+	if query :
+		qs = Post.objects.filter(
+			Q(title__icontains=query)
+
+		).distinct()
+	
+
+	context = {
+				'object_list': qs,
 	}
 
 	return render(request,'BlogApp/post.html',context)
