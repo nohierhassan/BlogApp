@@ -8,6 +8,7 @@ from django.dispatch import receiver
 
 # Create your models here.
 
+
 class Category(models.Model):
     categoryId   = models.AutoField(primary_key=True)
     categoryName = models.CharField(max_length=30)
@@ -63,15 +64,15 @@ class Comment(models.Model):
     postId       = models.ForeignKey(Post,on_delete=models.DO_NOTHING)
     commentContent      = models.CharField(max_length=150)
     commentDate         = models.DateTimeField(auto_now=True, auto_now_add=False)
+    commentAuthor       = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+   
     def __str__(self):
-        return self.commentContent
+        return 'Comment {} by {}'.format(self.body, self.name)
 
 class ForbiddenWord(models.Model):
     wordId=models.IntegerField(primary_key=True)
     word=models.CharField(max_length=20)
     def __str__(self):
         return self.word
-
-
 
 

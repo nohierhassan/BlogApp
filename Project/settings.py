@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'BlogApp',
     'adminUser',
     'AccountsApp',
+    'post',
 ]
 
 MIDDLEWARE = [
