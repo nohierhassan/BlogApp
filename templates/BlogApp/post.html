@@ -37,15 +37,47 @@
 	    		<div class="row d-flex ">
 	    			<div class="col-lg-8 px-md-5 py-5" >
 	    				<div class="row pt-md-4" >
+	{% comment %}
+	Other solution 
+	 {% endcomment %}
+	 	{% for eachPost in object_list %}
+			    			<div class="col-md-12">
+									<div class="blog-entry ftco-animate d-md-flex">
+										<a href="single.html" class="img img-2" style="background-image: url('{%static 'images/image_1.jpg' %}');"></a>
+										<div class="text text-2 pl-md-4">
 
+									
+				              <h3 class="mb-2"><a href="single.html">{{eachPost.title}}</a></h3>
+				              <div class="meta-wrap">
+												<p class="meta">
+				              		<span><i class="icon-calendar mr-2"></i>{{eachPost.date}}</span>
+				              		{% comment %} <span><a href="single.html"><i class="icon-folder-o mr-2"></i>Travel</a></span> {% endcomment %}
+				              		<span><i class="icon-comment2 mr-2"></i>5 Comment</span>
+				              	</p>
+			              	</div>
+				              <p class="mb-4">{{eachPost.content}}</p>
+				              
+							  <p><a href="#" class="btn-custom">Read More <span class="ion-ios-arrow-forward"></span></a></p>
+				            	</div>
+									</div>
+						
 
-					{% for post in object_list %}		<!-- POST: -->
+								</div>
+								{% endfor %}
+
+								{% comment %} 
+								End of other solution
+								 {% endcomment %}
+
+					{% comment %} {% for post in object_list %}		<!-- POST: -->
 				<div>
 				<h1 class="mb-3">{{post.title}}</h1> <!-- POST TITLE -->
+				<h1 class="mb-3">{{post.content}}</h1> <!-- POST content -->
+
 
 				<h5>{{post.categoryId.name}}</h5> 
 				{% endfor %}	<!-- Category  -->
-				</div>
+				</div> {% endcomment %}
 					      
 <p>
 <!-- POST IMAGE -->

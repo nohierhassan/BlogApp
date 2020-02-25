@@ -45,9 +45,15 @@ def search(request):
 	#qs = Post.objects.all()
 	if query :
 		qs = Post.objects.filter(
-			Q(title__icontains=query)
+			Q(title__icontains=query)|Q(tags__tagname__icontains=query) 
 
 		).distinct()
+			
+		# ts =Tag.objects.filter(
+		# 	Q(tagname__icontains=query)
+
+		# ).distinct() 
+
 	
 
 	context = {
@@ -96,3 +102,6 @@ def login(request):
 	}
 	return render(request ,'BlogApp/login.html' , context)
 
+def showpost(request,num):
+	post=Post.objects.get(postId=num)
+	return render(request,'BlogApp/post.html',{'post':post})

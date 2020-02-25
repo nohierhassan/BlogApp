@@ -11,9 +11,9 @@ from django.contrib.auth.models import AbstractUser
 #     user=models.ManyToManyField(Category)
 
 
-# class Tag(models.Model):
-#     tagId=models.IntegerField(primary_key=True)
-#     tagname=models.CharField(max_length=50)
+class Tag(models.Model):
+    tagId=models.IntegerField(primary_key=True)
+    tagname=models.CharField(max_length=50)
 
 
 
@@ -27,9 +27,8 @@ class Post(models.Model):
     image=models.ImageField(("Default"), upload_to=None, height_field=None, width_field=None, max_length=None)
     def __str__(self):
       return self.title
-  #  tags=models.ManyToManyField(Tag)
-
-
+    tags=models.ManyToManyField(Tag)
+    
 # class Comment(models.Model):
 #     commentId=models.IntegerField(primary_key=True)
 #     postId=models.ForeignKey(Post,on_delete=models.DO_NOTHING)
@@ -39,7 +38,6 @@ class Post(models.Model):
 # class ForbiddenWord(models.Model):
 #     fId=models.IntegerField(primary_key=True)
 #     word=models.CharField(max_length=20)
-
 
 
 # class tagPost(models.Model):
