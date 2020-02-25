@@ -96,7 +96,7 @@ def addCategory(request):
 def addPost(request):
 	post_form = PostForm()
 	if(request.method == 'POST'):
-		post_form = PostForm(request.POST)
+		post_form = PostForm(request.POST,request.FILES)
 		if post_form.is_valid():
 			post_form.save()
 			return HttpResponseRedirect('/adminUser/posts/')
@@ -130,6 +130,10 @@ def addUser(request):
 		if user_form.is_valid():
 			user_form.save()
 			return HttpResponseRedirect('/adminUser/users/')
+		else:
+			return HttpResponseRedirect('/adminUser/users/')
+
+
 	else:
 		context = {'user_form': user_form}
 		return render(request,'admin/user_add.html',context)
@@ -159,9 +163,32 @@ def addTag(request):
 		tag_form = TagForm(request.POST)
 		if tag_form.is_valid():
 			tag_form.save()
-			return HttpResponseRedirect('/adminUser/posts/addPost')
+			return HttpResponseRedirect('/adminUser/posts/addTag')
 	else:
 		context = {'tag_form': tag_form}
 		return render(request,'admin/tag_add.html',context)
+
+def isAdmin(request, num):
+	us = ExtendedUser.objects.get(id = num)
+	us.is_admin = True
+	us.is_superuser = True
+	us.is_staff = True
+	us.save()
+	return HttpResponseRedirect('/adminUser/users/') 
+
+
+def blocked(request, num):
+	us = ExtendedUser.objects.get(id = num)
+	us.is_active = True
+	us.save()
+	return HttpResponseRedirect('/adminUser/users/')
+
+
+def unblocked(request, num):
+	us = ExtendedUser.objects.get(id = num)
+	us.is_active = False
+	us.save()
+	return HttpResponseRedirect('/adminUser/users/')
+
 
 

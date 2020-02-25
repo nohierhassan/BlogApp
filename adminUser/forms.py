@@ -37,15 +37,11 @@ class PostForm(forms.ModelForm):
 class UserForm(forms.ModelForm):
     class Meta:
         model = ExtendedUser
-        fields = ('username','password','email','is_admin','is_active','is_staff','is_superuser')
+        fields = ('username','password','email')
         widgets = {
                     'username' : forms.TextInput( attrs={'class': 'form-control '}),
                     'password' : forms.PasswordInput( attrs={'class': 'form-control '}),
                     'email' : forms.EmailInput( attrs={'class': 'form-control '}),
-                    'is_admin' : forms.CheckboxInput(),
-                    'is_active' : forms.CheckboxInput(),
-                    'is_staff' : forms.CheckboxInput(),
-                    'is_superuser' : forms.CheckboxInput(),
 
                     }
 

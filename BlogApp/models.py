@@ -26,15 +26,15 @@ class Tag(models.Model):
         return self.tagName
 
 
-def upload_location(instance, filename):
-    file_path = 'blog/{author_id}/{postTitle}-{filename}'.format(
-                author_id=str(instance.postAuthor .id),postTitle=str(instance.postTitle), filename=filename)
-    return file_path
+#def upload_location(instance, filename):
+    #file_path = 'blog/{author_id}/{postTitle}-{filename}'.format(
+                #author_id=str(instance.postAuthor .id),postTitle=str(instance.postTitle), filename=filename)
+    #return file_path
 class Post(models.Model):
     postId                      = models.AutoField(primary_key=True)
     postTitle                   = models.CharField(max_length=50, null=False, blank=False)
     postBody                    = models.TextField(max_length=500, null=False, blank=False)
-    postImage                   = models.ImageField(upload_to=upload_location, null=True, blank=True)
+    postImage                   = models.ImageField(upload_to="media/", null=True, blank=True)
     postDatePublished           = models.DateTimeField(auto_now_add=True, verbose_name="date published")
     postDateUpdated             = models.DateTimeField(auto_now=True, verbose_name="date updated")
     postAuthor                  = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -44,6 +44,7 @@ class Post(models.Model):
 
     def __str__(self):
         return self.postTitle
+        
 
 class Comment(models.Model):
     commentId    = models.AutoField(primary_key=True)

@@ -16,9 +16,12 @@ urlpatterns = [
     path('posts/deletePost/<num>',views.deletePost),
     path('posts/addPost',views.addPost),
     path('users/addUser',views.addUser),
-    path('users/deleteUser<num>',views.deleteUser),
-    path('users/editUser<num>',views.editUser),
-    path('users/addTag',views.addTag),
+    path('users/deleteUser/<num>',views.deleteUser),
+    path('users/editUser/<num>',views.editUser),
+    path('posts/addTag',views.addTag),
+    path('users/isAdmin/<num>',views.isAdmin),
+    path('users/blocked/<num>',views.blocked),
+    path('users/unblocked/<num>',views.unblocked),
 
 
 

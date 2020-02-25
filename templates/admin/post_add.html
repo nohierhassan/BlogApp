@@ -66,9 +66,16 @@
             <div class="container-fluid">
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
-                <form method="POST">
+                <form method="POST" enctype="multipart/form-data">
                     {{post_form.as_ul}}{%csrf_token%}
+                    <a href="addTag">
+                        <button type="button" class="btn btn-info"> 
+                            <i class="mdi mdi-tag-plus"></i>
+                            Add Tag</button>
+                        </a>
                     <br>
+                    <br>
+
                     <button type="submit" class="btn btn-success">Save</button>
                 </form>
             </div>
