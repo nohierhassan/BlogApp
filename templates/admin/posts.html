@@ -78,10 +78,12 @@
                                     <tr>
                                         <th scope="col">Title</th>
                                         <th scope="col">Content</th>
-                                        <th scope="col">date</th>
-                                        <th scope="col">Created User</th>
-                                        <th scope="col">Category</th>
                                         <th scope="col">Image</th>
+                                        <th scope="col">DatePublished</th>
+                                        <th scope="col">DateUpdated</th>
+                                        <th scope="col">Author</th>
+                                        <th scope="col">Category</th>
+                                        <th scope="col">Tag</th>
                                         <th scope="col">Edit</th>
                                         <th scope="col">Delete</th>
                                     </tr>
@@ -91,12 +93,11 @@
                                     <tr>
                                         <td>{{pt.postTitle}}</td>
                                         <td>{{pt.postBody}}</td>
+                                        <td>{{pt.postImage}}</td>
                                         <td>{{pt.postDatePublished}}</td>
                                         <td>{{pt.postDateUpdated}}</td>
-                                        <td>{{pt.postSlug}}</td>
                                         <td>{{pt.postAuthor}}</td>
                                         <td>{{pt.postCategory}}</td>
-                                        <td>{{pt.postImage}}</td>
                                         <td>{{pt.postTag}}</td>
                                         <td><a href="editPost/{{pt.postId}}">EDIT</a></td>
                                         <td><a href="deletePost/{{pt.postId}}">DELETE</a></td>

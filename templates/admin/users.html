@@ -91,12 +91,12 @@
                                 <tbody>
                                     {% for us in all_users  %}
                                          {% if us.is_admin is True %}
-                                            <tr>
-                                                <th scope="row">Danger</th>
+                                            <tr class="table-danger">
                                                 <td>{{us.username}}</td>
                                                 <td>{{us.email}}</td>
                                                 <td>{{us.date_joined}}</td>
                                                 <td>{{us.last_login}}</td>
+                                                <td>{{us.is_admin}}</td>
                                                 <td>{{us.is_active}}</td>
                                                 <td>{{us.is_staff}}</td>
                                                 <td>{{us.is_superuser}}</td>
