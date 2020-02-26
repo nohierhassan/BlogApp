@@ -53,9 +53,10 @@ class Comment(models.Model):
     commentContent      = models.CharField(max_length=150)
     commentDate         = models.DateTimeField(auto_now=True, auto_now_add=False)
     commentAuthor       = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-   
+    class Meta:
+        ordering = ['commentDate']
     def __str__(self):
-        return 'Comment {} by {}'.format(self.body, self.name)
+        return 'Comment {}'.format(self.body)
 
 class ForbiddenWord(models.Model):
     wordId=models.IntegerField(primary_key=True)
