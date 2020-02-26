@@ -14,7 +14,7 @@ def home(request):
 
 def users(request):
 	users = ExtendedUser.objects.all()
-	context = {'all_posts' : users}
+	context = {'all_users' : users}
 	return render(request ,'admin/users.html' , context)
 
 def posts(request):
@@ -92,16 +92,18 @@ def addCategory(request):
 		context = {'cat_form': cat_form}
 		return render(request,'admin/cat_add.html',context)
 
-
+		
 def addPost(request):
 	post_form = PostForm()
 	if(request.method == 'POST'):
-		if post_form.is_valid:
+		post_form = PostForm(request.POST,request.FILES)
+		if post_form.is_valid():
 			post_form.save()
 			return HttpResponseRedirect('/adminUser/posts/')
 	else:
 		context = {'post_form': post_form}
 		return render(request,'admin/post_add.html',context)
+
 
 def deletePost(request,num):
     pt = Post.objects.get(postId = num)
@@ -119,13 +121,20 @@ def editPost(request,num):
         post_form = PostForm(instance = pt)
         context = {'post_form':post_form}
         return render(request,'admin/post_add.html',context)
+		
 
 def addUser(request):
 	user_form = UserForm()
 	if(request.method == 'POST'):
-		if user_form.is_valid:
+		user_form = UserForm(request.POST)
+		if user_form.is_valid():
 			user_form.save()
 			return HttpResponseRedirect('/adminUser/users/')
+		else:
+			context = {}
+			return render(request,'admin/auth_error.html',context)
+
+
 	else:
 		context = {'user_form': user_form}
 		return render(request,'admin/user_add.html',context)
@@ -139,14 +148,48 @@ def deleteUser(request,num):
 def editUser(request,num):
     us = ExtendedUser.objects.get(id = num)
     if(request.method == 'POST'):
-        user_form = ExtendedUser(request.POST, instance = us)
+        user_form = UserForm(request.POST, instance = us)
         if user_form.is_valid():
             user_form.save()
             return HttpResponseRedirect('/adminUser/users/') 
     else:
-        user_form = PostForm(instance = us)
+        user_form = UserForm(instance = us)
         context = {'user_form':user_form}
         return render(request,'admin/user_add.html',context)
+
+
+def addTag(request):
+	tag_form = TagForm()
+	if(request.method == 'POST'):
+		tag_form = TagForm(request.POST)
+		if tag_form.is_valid():
+			tag_form.save()
+			return HttpResponseRedirect('/adminUser/posts/addTag')
+	else:
+		context = {'tag_form': tag_form}
+		return render(request,'admin/tag_add.html',context)
+
+def isAdmin(request, num):
+	us = ExtendedUser.objects.get(id = num)
+	us.is_admin = True
+	us.is_superuser = True
+	us.is_staff = True
+	us.save()
+	return HttpResponseRedirect('/adminUser/users/') 
+
+
+def blocked(request, num):
+	us = ExtendedUser.objects.get(id = num)
+	us.is_active = True
+	us.save()
+	return HttpResponseRedirect('/adminUser/users/')
+
+
+def unblocked(request, num):
+	us = ExtendedUser.objects.get(id = num)
+	us.is_active = False
+	us.save()
+	return HttpResponseRedirect('/adminUser/users/')
 
 
 
