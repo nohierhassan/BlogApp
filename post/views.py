@@ -8,7 +8,7 @@ from django.shortcuts import render
 # from django.shortcuts import render
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse
-from BlogApp.models import Post,Category,Tag
+from BlogApp.models import Post,Category,Tag,Comment
 # from .forms import CommentForm
 # from django.contrib.auth.forms import UserCreationForm
 # from django.contrib.auth import authenticate, login as authlogin
@@ -22,21 +22,21 @@ def post(request, post_id):
 	all_categories= Category.objects.all()
 	post=get_object_or_404(Post,pk=post_id)
 	all_Tags= Tag.objects.all()
-	comments = post.objects.filter(post=post.postId)
-	new_comment = None
+	# comments = Comment.objects.filter(postId=post.postId)
+	# new_comment = None
 
-	if request.method == 'POST':
-		comment_form = CommentForm(data=request.POST)
-		if comment_form.is_valid():
+	# if request.method == 'POST':
+	# 	comment_form = CommentForm(data=request.POST)
+	# 	if comment_form.is_valid():
 
 			
-			new_comment = comment_form.save(commit=False)
-			new_comment.commentAuthor=request.user
-			new_comment.post = post
+	# 		new_comment = comment_form.save(commit=False)
+	# 		new_comment.commentAuthor=request.user
+	# 		new_comment.post = post
 
-			new_comment.save()
-	else:
-		comment_form = CommentForm()
+	# 		new_comment.save()
+	# else:
+	# 	comment_form = CommentForm()
 
 
 	context={
@@ -44,9 +44,9 @@ def post(request, post_id):
 	'all_categories':all_categories,
 	'all_Tags':all_Tags,
 	'category':category,
-	'comments': comments,
-	'new_comment': new_comment,
-	'comment_form': comment_form
+	# 'comments': comments,
+	# 'new_comment': new_comment,
+	# 'comment_form': comment_form
 	}
 	return render (request,'post/post.html',context)
 
