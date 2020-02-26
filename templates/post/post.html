@@ -48,7 +48,7 @@
 					      
 <p>
 <!-- POST IMAGE -->
-<img src="{{post.image.url}}" alt="" class="img-fluid">
+<img src="{{post.postImage.url}}" alt="" class="img-fluid">
     </p>
 
      <!-- POST CONTENT -->
@@ -70,8 +70,10 @@
 <!-- LIKE AND DISLIKE -->
 
   <div> 
-	<button type="button" class="btn btn-outline-danger"><i class="fa fa-thumbs-o-up"></i> Like</button>
-	<button type="button" class="btn btn-outline-dark"><i class="fa fa-thumbs-o-down"></i> Dislike</button>
+	<button type="submit" class="btn btn-outline-danger"><i class="fa fa-thumbs-o-up"></i> Like</button>
+	<button type="submit" class="btn btn-outline-dark"><i class="fa fa-thumbs-o-down"></i> Dislike</button>
+	<button type="button" class="btn btn-outline-danger" disabled=""><i class="fa fa-thumbs-o-up"></i> Like</button>
+	<button type="button" class="btn btn-outline-dark" disabled=""><i class="fa fa-thumbs-o-down"></i> Dislike</button>
 
 </div>
 

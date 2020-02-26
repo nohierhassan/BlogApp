@@ -60,3 +60,7 @@ def category_detail(request, cat_id):
 
 
 
+def like(request,num):
+	post=get_object_or_404(Post,pk=num)
+	user=request.user
+	

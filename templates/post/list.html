@@ -39,7 +39,7 @@
 {% for p in post %}
 						<div class="col-md-12">
 							<div class="blog-entry ftco-animate d-md-flex">
-								<a href="{% url 'post' p.pk %}" class="img img-2" style="background-image: url('{{p.image.url}}');"></a>
+								<a href="{% url 'post' p.pk %}" class="img img-2" style="background-image: url('{{p.postImage.url}}');"></a>
 								<div class="text text-2 pl-md-4">
 		              <h3 class="mb-2"><a href="{% url 'post' p.pk %}">{{p.postTitle}}</a></h3>
 		              <div class="meta-wrap">
