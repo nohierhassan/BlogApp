@@ -3,7 +3,8 @@ from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login as authlogin
 from .models import Post
-from django.db.models import Q
+from django.db.models import Q 
+from django.http import HttpResponse
 # Create your views here.
 
 def home(request):
@@ -105,3 +106,11 @@ def login(request):
 def showpost(request,num):
 	post=Post.objects.get(postId=num)
 	return render(request,'BlogApp/post.html',{'post':post})
+
+
+	
+# def toggle(request):
+#     w = user.objects.get(id=request.POST['id'])
+#     w.is_working = request.POST['isworking'] == 'true'
+#     w.save()
+#     return HttpResponse('success')

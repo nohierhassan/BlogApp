@@ -15,5 +15,6 @@ urlpatterns = [
     path('login/', views.login),	
     path('home/search/',views.search),
     path('home/view/<num>',views.showpost),
+    #path('home/sub/',views.subscribe),
 
 ]

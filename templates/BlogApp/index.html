@@ -2,7 +2,7 @@
  
 {% block main_block %}
 {% load static %}
-
+{% include 'BlogApp/side_bar.html' %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -145,7 +145,7 @@
 	              <form action="search" method= 'GET' class="search-form">
 	                <div class="form-group">
 	                  <span class="icon icon-search"></span>
-	                  <input type="text" name="query" class="form-control" placeholder="Search by Title or Tag" value={{ request.GET.q }}>
+	                  <input type="text" name="query" class="form-control" placeholder="Search by Title or Tag" value={{ request.GET.query }}>
 
 	                </div>
 	              </form>
@@ -153,15 +153,31 @@
 	            <div class="sidebar-box ftco-animate">
 	            	<h3 class="sidebar-heading">Categories</h3>
 	              <ul class="categories">
-	                <li><a href="#">Fashion <span>(6)</span></a></li>
-	                <li><a href="#">Technology <span>(8)</span></a></li>
-	                <li><a href="#">Travel <span>(2)</span></a></li>
-	                <li><a href="#">Food <span>(2)</span></a></li>
+	                <li><a href="#">Fashion <span>(6)</span></a> <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false">
+  					 Single toggle
+
+					 </button></li>
+
+	                <li><a href="#">Technology <span>(8)</span></a><button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false">
+					  Single toggle
+					</button></li>
+
+	                <li><a href="#">Travel <span>(2)</span></a><button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false">
+      					Single toggle
+						</button></li>
+
+	                <li><a href="#">Food <span>(2)</span></a><button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false">
+ 						 Single toggle
+						</button></li>
+
 	                <li><a href="#">Photography <span>(7)</span></a></li>
+				
 	              </ul>
 	            </div>
 
-	            <div class="sidebar-box ftco-animate">
+				
+
+	            {% comment %} <div class="sidebar-box ftco-animate">
 	              <h3 class="sidebar-heading">Popular Articles</h3>
 	              <div class="block-21 mb-4 d-flex">
 	                <a class="blog-img mr-4" style="background-image: url('{%static 'images/image_1.jpg' %}');"></a>
@@ -196,7 +212,7 @@
 	                  </div>
 	                </div>
 	              </div>
-	            </div>
+	            </div> {% endcomment %}
 
 	            <div class="sidebar-box ftco-animate">
 	              <h3 class="sidebar-heading">Tag Cloud</h3>
@@ -224,7 +240,7 @@
 	              </form>
 	            </div>
 
-	            <div class="sidebar-box ftco-animate">
+	            {% comment %} <div class="sidebar-box ftco-animate">
 	            	<h3 class="sidebar-heading">Archives</h3>
 	              <ul class="categories">
 	              	<li><a href="#">Decob14 2018 <span>(10)</span></a></li>
@@ -234,7 +250,7 @@
 	                <li><a href="#">June 2018 <span>(7)</span></a></li>
 	                <li><a href="#">May 2018 <span>(5)</span></a></li>
 	              </ul>
-	            </div>
+	            </div> {% endcomment %}
 
 
 	            <div class="sidebar-box ftco-animate">
