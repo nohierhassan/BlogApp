@@ -51,6 +51,67 @@ def LoginVeiw(request):
 	context['form'] = form
 	return render(request, 'registration/login.html', context)
 
+# def EditView(request):
+
+# 	if not request.user.is_authenticated:
+# 		return redirect("login")
+
+# 	context = {}
+
+# 	if request.POST:
+# 		form = RegistrationForm(request.POST, instance=request.user)
+# 		if form.is_valid():
+# 			form.initial = {
+# 					"email": request.POST['email'],
+# 					"username": request.POST['username'],
+# 					"password1": request.POST['password1'],
+# 					"password2": request.POST['password2'],
+# 			}
+# 			form.save()
+# 			login(request, request.user)
+# 			return redirect("home")
+# 	else:
+# 		form = RegistrationForm(
+# 				initial= {
+# 					"email": request.user.email,
+# 					"username": request.user.username,
+# 				}
+# 			)
+# 	context['form'] = form
+# 	return render(request, 'registration/edit.html', context)
+
+#3333333333333333333333333333333333333333333333333333333333333333333333333
+# return name
+# def EditView(request):
+
+# 	if not request.user.is_authenticated:
+# 			return redirect("login")
+
+# 	context = {}
+# 	if request.POST:
+# 		form = RegistrationForm(request.POST, instance=request.user)
+# 		if form.is_valid():
+# 			form.initial = {
+# 					"email": request.POST['email'],
+# 					"username": request.POST['username'],
+# 					"password1": request.POST['password1'],
+# 					"password2": request.POST['password2'],
+# 			}
+# 			form.save()
+# 			context['success_message'] = "Updated"
+# 	else:
+# 		form = RegistrationForm(
+
+# 			initial={
+# 					"email": request.user.email, 
+# 					"username": request.user.username,
+# 				}
+# 			)
+
+# 	context['form'] = form
+# 	return render(request, "registration/edit.html", context)
+
+# # update the database  
 def EditView(request):
 
 	if not request.user.is_authenticated:
@@ -62,8 +123,6 @@ def EditView(request):
 		form = RegistrationForm(request.POST, instance=request.user)
 		if form.is_valid():
 			form.save()
-			login(request, request.user)
-			return redirect("home")
 	else:
 		form = RegistrationForm(
 				initial= {
@@ -71,9 +130,5 @@ def EditView(request):
 					"username": request.user.username,
 				}
 			)
-	context['form'] = form
-	return render(request, 'registration/edit.html', context)
-
-
-
-
+	context['account_form'] = form
+	return render(request, "registration/edit.html", context)
