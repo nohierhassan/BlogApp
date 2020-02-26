@@ -5,11 +5,13 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login as authlogin
 from adminUser.forms import *
 from AccountsApp.models import ExtendedUser
+from django.conf import settings
+
+
 # Create your views here.
 def home(request):
-	context= {
-	
-	}
+	user = request.user
+	context= {'user' : user} 
 	return render(request ,'admin/index.html' , context)
 
 def users(request):
@@ -98,7 +100,9 @@ def addPost(request):
 	if(request.method == 'POST'):
 		post_form = PostForm(request.POST,request.FILES)
 		if post_form.is_valid():
-			post_form.save()
+			newForm = post_form.save(commit=False)
+			newForm.postAuthor = request.user
+			newForm.save()
 			return HttpResponseRedirect('/adminUser/posts/')
 	else:
 		context = {'post_form': post_form}
@@ -156,6 +160,7 @@ def editUser(request,num):
         user_form = UserForm(instance = us)
         context = {'user_form':user_form}
         return render(request,'admin/user_add.html',context)
+		
 
 
 def addTag(request):
