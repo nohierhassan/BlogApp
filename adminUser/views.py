@@ -131,7 +131,8 @@ def addUser(request):
 			user_form.save()
 			return HttpResponseRedirect('/adminUser/users/')
 		else:
-			return HttpResponseRedirect('/adminUser/users/')
+			context = {}
+			return render(request,'admin/auth_error.html',context)
 
 
 	else:
