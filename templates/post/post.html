@@ -70,10 +70,19 @@
 <!-- LIKE AND DISLIKE -->
 
   <div> 
-	<button type="submit" class="btn btn-outline-danger"><i class="fa fa-thumbs-o-up"></i> Like</button>
-	<button type="submit" class="btn btn-outline-dark"><i class="fa fa-thumbs-o-down"></i> Dislike</button>
-	<button type="button" class="btn btn-outline-danger" disabled=""><i class="fa fa-thumbs-o-up"></i> Like</button>
-	<button type="button" class="btn btn-outline-dark" disabled=""><i class="fa fa-thumbs-o-down"></i> Dislike</button>
+  	{% if likes.likes is True %}
+
+		<a href="like/{{post.postId}}"><button type="submit" class="btn btn-outline-danger" disabled><i class="fa fa-thumbs-o-up"></i> Like</button></a>
+
+		<a href="dislike/{{post.postId}}"><button type="submit" class="btn btn-outline-dark"><i class="fa fa-thumbs-o-down"></i> Dislike</button>
+
+
+	{% else %}
+
+		<a href="dislike/{{post.postId}}"><button type="submit" class="btn btn-outline-dark"><i class="fa fa-thumbs-o-down" disabled></i> Dislike</button></a>
+		<button type="submit" class="btn btn-outline-danger" ><i class="fa fa-thumbs-o-up"></i> Like</button>
+	{% endif %}
+
 
 </div>
 

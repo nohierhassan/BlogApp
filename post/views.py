@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 # from django.shortcuts import render
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse
-from BlogApp.models import Post,Category,Tag,Comment
+from BlogApp.models import Post,Category,Tag,Comment,Likes
 from .forms import CommentForm
 from AccountsApp.models import ExtendedUser
 from django.conf import settings
@@ -23,6 +23,9 @@ def post(request, post_id):
 	post=Post.objects.get(postId = post_id)
 	all_Tags= Tag.objects.all()
 	comments = Comment.objects.filter(postId=post.postId)
+	total_likes= Likes.objects.filter(postId=post_id).filter(likes=True).count()
+	total_dislikes= Likes.objects.filter(postId=post_id).filter(likes=False).count()
+	likes=Likes.objects.get(postId=post_id)
 	new_comment = None
 
 	if request.method == 'POST':
@@ -43,7 +46,10 @@ def post(request, post_id):
 	'category':category,
 	'comments': comments,
 	'new_comment': new_comment,
-	'comment_form': comment_form
+	'comment_form': comment_form,
+	'total_likes':total_likes,
+	'total_dislikes':total_dislikes,
+	'likes':likes
 	}
 	return render (request,'post/post.html',context)
 
@@ -63,4 +69,29 @@ def category_detail(request, cat_id):
 def like(request,num):
 	post=get_object_or_404(Post,pk=num)
 	user=request.user
-	
+	like=Likes(pId=post,User=user,likes = True)
+	like.save()
+
+
+	return HttpResponseRedirect("post/post/num")
+
+
+
+def notlike(request,num):
+	like=Likes.objects.get(pId=num)
+	like.delete()
+	return HttpResponseRedirect("post/post/num")
+
+
+def dislike(request,num):
+	post=get_object_or_404(Post,pk=num)
+	user=request.user
+	dislike=Likes(pId=post,User=user,likes = False)
+	dislike.save()
+	return HttpResponseRedirect("post/post/num")
+
+
+def notdislike(request,num):
+	dislike=Likes.objects.get(pId=num)
+	dislike.delete()
+	return HttpResponseRedirect("post/post/num")

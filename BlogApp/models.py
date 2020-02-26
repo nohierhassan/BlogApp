@@ -41,7 +41,7 @@ class Post(models.Model):
     postDateUpdated             = models.DateTimeField(auto_now=True, verbose_name="date updated")
     postAuthor                  = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     postCategory                = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
-    likes                       =models.ManyToManyField(Likes)
+    likes                       = models.ManyToManyField(Likes,blank=True)
    # postSlug                    = models.SlugField(blank=True, unique=True)
     postTag                     = models.ManyToManyField(Tag, blank=True)
 
@@ -67,11 +67,10 @@ class ForbiddenWord(models.Model):
     def __str__(self):
         return self.word
 
-# class Likes(models.Model):
-#     pId = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='likes')
-#     User=models.ForeignKey(User,on_delete=models.DO_NOTHING)
-#     likes=models.BooleanField()
+class Likes(models.Model):
+    pId = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='likes')
+    User=models.ForeignKey(User,on_delete=models.DO_NOTHING)
+    likes=models.BooleanField()
 
 
-   
 
