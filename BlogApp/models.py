@@ -5,14 +5,15 @@ from django.utils.text import slugify
 from django.conf import settings
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
-
+# from AccountsApp.models import ExtendedUser
+# from django.contrib.auth.models import User
 # Create your models here.
 
-
+User = settings.AUTH_USER_MODEL
 class Category(models.Model):
     categoryId   = models.AutoField(primary_key=True)
     categoryName = models.CharField(max_length=30)
-    userId       = models.ManyToManyField(settings.AUTH_USER_MODEL,blank = True)
+    userId       = models.ManyToManyField(User,blank = True)
     def __str__(self):
         return self.categoryName
 
@@ -35,7 +36,7 @@ class Post(models.Model):
     postId                      = models.AutoField(primary_key=True)
     postTitle                   = models.CharField(max_length=50, null=False, blank=False)
     postBody                    = models.TextField(max_length=500, null=False, blank=False)
-    postImage                   = models.ImageField(upload_to="media/", null=True, blank=True)
+    postImage                   = models.ImageField(("Default"), upload_to=None, height_field=None, width_field=None, max_length=None)
     postDatePublished           = models.DateTimeField(auto_now_add=True, verbose_name="date published")
     postDateUpdated             = models.DateTimeField(auto_now=True, verbose_name="date updated")
     postAuthor                  = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -49,14 +50,15 @@ class Post(models.Model):
 
 class Comment(models.Model):
     commentId    = models.AutoField(primary_key=True)
-    postId       = models.ForeignKey(Post,on_delete=models.DO_NOTHING)
+    postId       = models.ForeignKey(Post,on_delete=models.DO_NOTHING,related_name="comments")
     commentContent      = models.CharField(max_length=150)
     commentDate         = models.DateTimeField(auto_now=True, auto_now_add=False)
-    commentAuthor       = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    commentAuthor       = models.ForeignKey(User, on_delete=models.CASCADE)
+  
     class Meta:
         ordering = ['commentDate']
     def __str__(self):
-        return 'Comment {}'.format(self.body)
+        return 'Comment {}'.format(self.commentContent)
 
 class ForbiddenWord(models.Model):
     wordId=models.IntegerField(primary_key=True)
