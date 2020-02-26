@@ -41,10 +41,10 @@
 							<div class="blog-entry ftco-animate d-md-flex">
 								<a href="{% url 'post' p.pk %}" class="img img-2" style="background-image: url('{{p.image.url}}');"></a>
 								<div class="text text-2 pl-md-4">
-		              <h3 class="mb-2"><a href="{% url 'post' p.pk %}">{{p.title}}</a></h3>
+		              <h3 class="mb-2"><a href="{% url 'post' p.pk %}">{{p.postTitle}}</a></h3>
 		              <div class="meta-wrap">
 										<p class="meta">
-		              		<span><i class="icon-calendar mr-2"></i>{{p.date}}</span>
+		              		<span><i class="icon-calendar mr-2"></i>{{p.postDatePublished}}</span>
 
 		              	</p>
 	              	</div>  
