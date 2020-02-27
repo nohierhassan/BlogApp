@@ -25,35 +25,21 @@ def post(request, post_id):
     all_categories= Category.objects.all()
     post=get_object_or_404(Post,pk=post_id)
     all_Tags= Tag.objects.all()
-
-
     is_liked=None
-    like = Likes.objects.filter(pId=post.postId)
+    like = Likes.objects.filter(post_id=post.postId)
 
     if request.user.is_authenticated:
-        like = Likes.objects.filter(pId=post, User=request.user.id)
+        like = Likes.objects.filter(post_id=post, userId=request.user.id)
 
         if like.exists():
-            if like.get().likes == False:
+            if like.get().like== False:
                 is_liked=True
             else:
                 is_liked=False
-
-
-    is_liked=None
-    like = Likes.objects.filter(post_id=post)
 
     post_likes = like.filter(like = True).count()
     post_dislikes = like.filter(like = False).count()
 
-    if request.user.is_authenticated:
-        like = Likes.objects.filter(post_id=post, userId=request.user)
-
-        if like.exists():
-            if like.get().like == True:
-                is_liked=True
-            else:
-                is_liked=False
 
 
 
@@ -118,17 +104,3 @@ def like(request,post_id):
 
     return HttpResponseRedirect('/post/post/' + post_id)
 
-
-
-    if request.POST.get('like') == '1':
-        Likes.objects.create(pId=post, User=request.user, likes = True)
-    else:
-        Likes.objects.create(pId=post, User=request.user, likes = False)
-
-    like = Likes.objects.filter(pId=post, likes = 0)
-
-    if like.count() >= 10:
-        like.delete()
-        post.delete()
-
-    return HttpResponseRedirect('/post/post/' + post_id)

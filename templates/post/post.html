@@ -87,26 +87,17 @@
   <button type="submit" name="dislike" value="dislike" class="btn btn-outline-primary"><i class="fa fa-thumbs-o-down"></i> Dislike</button>
 </form> -->
 <div>
-<<<<<<< HEAD
-     <span>Likes: {{ post_likes }}</span><br>
-            <span>Dislikes: {{ post_dislikes }}</span>
-            <form method="post" action="/post/post/like/{{post.postId}}/">
-=======
-<span>Likes: {{ post_likes }}</span><br>
+     
+            <span>Likes: {{ post_likes }}</span><br>
             <span>Dislikes: {{ post_dislikes }}</span>
             <form method="post" action="/post/post/like/{{post.postId}}">
->>>>>>> likesyarab
                 {% csrf_token %}  
                 {% if is_liked == None %}
                   <input type="hidden" name="like" value="0">
                   <button type="submit" class= "btn btn-outline-danger ">Dislike</button>
                 {% endif %}
             </form>
-<<<<<<< HEAD
             <form method="post" action="/post/post/like/{{post.postId}}/">
-=======
-            <form method="post" action="/post/post/like/{{post.postId}}">
->>>>>>> likesyarab
                 {% csrf_token %}
                 {% if is_liked == None %}
                   <input type="hidden" name="like" value="1">
@@ -114,15 +105,11 @@
                 {% endif %}
             </form>
         </div>
-<<<<<<< HEAD
 
-=======
->>>>>>> likesyarab
 
 
 <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- COMMENTS  -->
-<<<<<<< HEAD
 		            <div class="pt-5 mt-5">
 						<section>
 							<div class="container ">
@@ -175,56 +162,7 @@
       				</div>
 			    		</div><!-- END-->
 			    	</div>
-=======
-<section>
-    <div class="container ">
-            <h3 class="mb-5 font-weight-bold">{{comments.count}} comment{{comments.count|pluralize}}</h3>
-{% for comment in comments %}
-            <blockquote class="blockquote">
-              <p> {{ comment.commentContent }}</p>
-              <footer class="blockquote-footer"><cite title="Source Title">{{comment.commentAuthor |capfirst}}</cite>
-                <div>on : <span> {{comment.commentDate}}</span></div>
-            </footer> 
-           </blockquote>
-            
-           <div class="container mt-2">
-	{% for reply in comment.replies.all %}
-               <blockquote class="blockquote">
-                <p><small> {{reply.commentContent}}</small></p>
-                <footer class="blockquote-footer"><small> by  <cite title="Source Title">{{reply.commentAuthor |capfirst}}</cite></small>
-                <div>on : <span> {{reply.commentDate}}</span></div>
-                </footer>
-               </blockquote>
-	{% endfor %}
-               <div class="row mb-4 ">
-                <form method="POST">
-                    {% csrf_token %}
-                    <input type="hidden" name='comment_id' value= '{{comment.commentId}}'>
-                    {{ comment_form.as_p }}
-                    {% if request.user.is_authenticated %}
-                    	<input type="submit" value="Reply" class="btn btn-outline-info mr-sm-4 ">
-                    {% else %}
-                    	<input type="submit" value="Reply" class="btn btn-outline-info mr-sm-4 " disabled>
-                    {% endif %}
-                </form>
-               </div>
-           </div>
-{% endfor %}
-           
-                <form method="POST">
-          
-                    {% csrf_token %}
-                    {{ comment_form.as_p }}
-                    {% if request.user.is_authenticated %}
-                    <input type="submit" value="Comment" class="btn btn-outline-info mr-sm-4 ">
-                    {% else %}
-                    <input type="submit" value="Comment" class="btn btn-outline-info mr-sm-4 " disabled>
-                    {% endif %}
-                </form>
-          
-             </div>
-</section>
->>>>>>> 02740d860599d3204d8ab138b6a38011974705f8
+
 <!-- /////////////////////////////////////////////////////////////////////////////////////////////// -->
 
 <!-- SIDE BAR -->
