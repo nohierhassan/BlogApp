@@ -5,6 +5,8 @@ from __future__ import unicode_literals
 # from django.shortcuts import render
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
+
 from BlogApp.models import Post,Category,Tag,Comment,Likes
 from AccountsApp.models import ExtendedUser
 from django.conf import settings
@@ -23,6 +25,7 @@ def post(request, post_id):
     all_categories= Category.objects.all()
     post=Post.objects.get(postId = post_id)
     all_Tags= Tag.objects.all()
+
     is_liked=None
     like = Likes.objects.filter(pId=post.postId)
 
@@ -37,6 +40,24 @@ def post(request, post_id):
                 is_liked=True
             else:
                 is_liked=False
+
+
+    is_liked=None
+    like = Likes.objects.filter(post_id=post)
+
+    post_likes = like.filter(like = True).count()
+    post_dislikes = like.filter(like = False).count()
+
+    if request.user.is_authenticated:
+        like = Likes.objects.filter(post_id=post, userId=request.user)
+
+        if like.exists():
+            if like.get().like == True:
+                is_liked=True
+            else:
+                is_liked=False
+
+
     comments=Comment.objects.filter(postId=post.postId , reply=None)
     if request.method =='POST':
         comment_form=CommentForm(request.POST or None)
@@ -59,10 +80,11 @@ def post(request, post_id):
     'all_Tags':all_Tags,
     'category':category,
     'comments': comments,
-    'comment_form': comment_form,
-    'is_liked':is_liked,
+    'is_liked': is_liked, 
     'post_likes': post_likes, 
     'post_dislikes': post_dislikes,
+    'comment_form': comment_form,
+
 
     }
     return render (request,'post/post.html',context)
@@ -77,18 +99,35 @@ def category_detail(request, cat_id):
     })
 
 def like(request,post_id):
-    if not Likes.objects.filter(pId=post_id, User=request.user.id).exists():
+
+    if not Likes.objects.filter(post_id=post_id, userId=request.user.id).exists():
         post = Post.objects.get(postId=post_id)
 
         if request.POST.get('like') == '1':
-            Likes.objects.create(pId=post, User=request.user, likes = True)
+            Likes.objects.create(post_id=post, userId=request.user, like = True)
         else:
-            Likes.objects.create(pId=post, User=request.user, likes = False)
+            Likes.objects.create(post_id=post, userId=request.user, like = False)
 
-        like = Likes.objects.filter(pId=post, likes = 0)
+        like = Likes.objects.filter(post_id=post, like = 0)
 
         if like.count() >= 10:
             like.delete()
             post.delete()
+
+
+    return HttpResponseRedirect('/post/post/' + post_id)
+
+
+
+    if request.POST.get('like') == '1':
+        Likes.objects.create(pId=post, User=request.user, likes = True)
+    else:
+        Likes.objects.create(pId=post, User=request.user, likes = False)
+
+    like = Likes.objects.filter(pId=post, likes = 0)
+
+    if like.count() >= 10:
+        like.delete()
+        post.delete()
 
     return HttpResponseRedirect('/post/post/' + post_id)

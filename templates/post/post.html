@@ -87,16 +87,26 @@
   <button type="submit" name="dislike" value="dislike" class="btn btn-outline-primary"><i class="fa fa-thumbs-o-down"></i> Dislike</button>
 </form> -->
 <div>
+<<<<<<< HEAD
      <span>Likes: {{ post_likes }}</span><br>
             <span>Dislikes: {{ post_dislikes }}</span>
             <form method="post" action="/post/post/like/{{post.postId}}/">
+=======
+<span>Likes: {{ post_likes }}</span><br>
+            <span>Dislikes: {{ post_dislikes }}</span>
+            <form method="post" action="/post/post/like/{{post.postId}}">
+>>>>>>> likesyarab
                 {% csrf_token %}  
                 {% if is_liked == None %}
                   <input type="hidden" name="like" value="0">
                   <button type="submit" class= "btn btn-outline-danger ">Dislike</button>
                 {% endif %}
             </form>
+<<<<<<< HEAD
             <form method="post" action="/post/post/like/{{post.postId}}/">
+=======
+            <form method="post" action="/post/post/like/{{post.postId}}">
+>>>>>>> likesyarab
                 {% csrf_token %}
                 {% if is_liked == None %}
                   <input type="hidden" name="like" value="1">
@@ -104,7 +114,10 @@
                 {% endif %}
             </form>
         </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> likesyarab
 
 
 <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->

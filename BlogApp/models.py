@@ -70,9 +70,9 @@ class ForbiddenWord(models.Model):
         return self.word
 
 class Likes(models.Model):
-    pId = models.ForeignKey(Post,on_delete=models.CASCADE)
-    User=models.ForeignKey(User,on_delete=models.DO_NOTHING)
-    likes=models.BooleanField()
+    like=models.BooleanField()
+    userId=models.ForeignKey(User,on_delete= models.CASCADE)
+    post_id=models.ForeignKey(Post,on_delete= models.CASCADE)
 
 
 
