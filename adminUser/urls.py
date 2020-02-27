@@ -1,7 +1,7 @@
 from django.urls import path
 from adminUser import views
 urlpatterns = [
-    path('home/', views.home),
+    path('home/', views.home,name = "adminhome"),
     path('users/', views.users),
     path('posts/', views.posts),
     path('categories/', views.categories),

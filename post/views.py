@@ -5,11 +5,12 @@ from __future__ import unicode_literals
 # from django.shortcuts import render
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse
-from BlogApp.models import Post,Category,Tag,Comment
-from .forms import CommentForm
+from BlogApp.models import Post,Category,Tag,Comment,Likes
 from AccountsApp.models import ExtendedUser
 from django.conf import settings
+from .forms import *
 from django.contrib.auth.models import User
+
 # from django.contrib.auth.forms import UserCreationForm
 # from django.contrib.auth import authenticate, login as authlogin
 User = settings.AUTH_USER_MODEL
@@ -25,6 +26,8 @@ def post(request, post_id):
 	# is_liked = False
 	# if post.likes.filter(id=request.User.id).exists():
 	# 	is_liked = True
+
+
     comments=Comment.objects.filter(postId=post.postId , reply=None)
     if request.method =='POST':
         comment_form=CommentForm(request.POST or None)
@@ -52,6 +55,7 @@ def post(request, post_id):
 # 'is_liked':is_liked,
 # 'total_likes':post.total_likes(),
 
+
     }
     return render (request,'post/post.html',context)
 
@@ -64,12 +68,19 @@ def category_detail(request, cat_id):
         'post':post,
     })
 
+def like(request,post_id):
+    if not Likes.objects.filter(pId=post_id, User=request.user.id).exists():
+        post = Post.objects.get(postId=post_id)
 
+        if request.POST.get('like') == '1':
+            Likes.objects.create(pId=post, User=request.user, likes = True)
+        else:
+            Likes.objects.create(pId=post, User=request.user, likes = False)
 
+        like = Likes.objects.filter(pId=post, likes = 0)
 
+        if like.count() >= 10:
+            like.delete()
+            post.delete()
 
-
-def like(request,num):
-	post=get_object_or_404(Post,pk=num)
-	user=request.user
-	
+    return HttpResponseRedirect('/post/post/' + post_id)

@@ -115,7 +115,7 @@
                                         <tr>
                                             <td>{{us.username}}</td>
                                             <td>{{us.email}}</td>
-                                            {%if us.is_active is True%}
+                                            {%if us.is_blocked is True%}
                                                 <td><a href="unblocked/{{us.id}}">
                                                     <button type="button" class="btn btn-danger"> 
                                                         <i class="mdi mdi-block-helper"></i>
