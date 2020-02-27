@@ -10,7 +10,7 @@ urlpatterns = [
 	path('home/', views.home,name='home'),	
 	path('post/<int:post_id>/', views.post,name='post'),
 	path('category/', views.category,name='category'),
-	path('blocked/', views.blocked),
+	path('blocked/', views.blocked,name="blocked"),
     # path('register/', views.register,name = 'register'),	
     #path('login/', views.login),	
 

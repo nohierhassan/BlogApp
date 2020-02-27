@@ -31,9 +31,13 @@ def LoginVeiw(request):
 
 	user = request.user
 	# if the user is login in already
+
 	if user.is_authenticated:
-	 	return redirect("home")
+		return redirect("home")
 	 	# if we want to submit the form
+	# if request.POST:
+	# 	if not user.is_active:
+	# 		return redirect("blocked")
 	if request.POST:
 	 	form = LoginForm(request.POST)
 	 	if form.is_valid():
@@ -43,6 +47,8 @@ def LoginVeiw(request):
 
 	 		if user:
 	 			login(request, user)
+	 			if not user.is_blocked:
+	 				return redirect ("blocked")
 	 			return redirect("home")
 	# show the form for the first time
 	else:
@@ -51,67 +57,32 @@ def LoginVeiw(request):
 	context['form'] = form
 	return render(request, 'registration/login.html', context)
 
-# def EditView(request):
+def AdminLoginView(request):
+		logout(request)
+		context = {}
+		user = request.user
+		# if the user is login in already
 
-# 	if not request.user.is_authenticated:
-# 		return redirect("login")
+		if user.is_authenticated:
+		 	return redirect("home")
+		 	# if we want to submit the form
+		if request.POST:
+		 	form = LoginForm(request.POST)
+		 	if form.is_valid():
+		 		email = request.POST['email']
+		 		password = request.POST['password']
+		 		user = authenticate(email=email, password=password)
 
-# 	context = {}
+		 		if user:
+		 			login(request, user)
+		 			return redirect("home")
+		# show the form for the first time
+		else:
+		 	form = LoginForm()
 
-# 	if request.POST:
-# 		form = RegistrationForm(request.POST, instance=request.user)
-# 		if form.is_valid():
-# 			form.initial = {
-# 					"email": request.POST['email'],
-# 					"username": request.POST['username'],
-# 					"password1": request.POST['password1'],
-# 					"password2": request.POST['password2'],
-# 			}
-# 			form.save()
-# 			login(request, request.user)
-# 			return redirect("home")
-# 	else:
-# 		form = RegistrationForm(
-# 				initial= {
-# 					"email": request.user.email,
-# 					"username": request.user.username,
-# 				}
-# 			)
-# 	context['form'] = form
-# 	return render(request, 'registration/edit.html', context)
+		context['form'] = form
+		return render(request, 'registration/admin_login.html', context)
 
-#3333333333333333333333333333333333333333333333333333333333333333333333333
-# return name
-# def EditView(request):
-
-# 	if not request.user.is_authenticated:
-# 			return redirect("login")
-
-# 	context = {}
-# 	if request.POST:
-# 		form = RegistrationForm(request.POST, instance=request.user)
-# 		if form.is_valid():
-# 			form.initial = {
-# 					"email": request.POST['email'],
-# 					"username": request.POST['username'],
-# 					"password1": request.POST['password1'],
-# 					"password2": request.POST['password2'],
-# 			}
-# 			form.save()
-# 			context['success_message'] = "Updated"
-# 	else:
-# 		form = RegistrationForm(
-
-# 			initial={
-# 					"email": request.user.email, 
-# 					"username": request.user.username,
-# 				}
-# 			)
-
-# 	context['form'] = form
-# 	return render(request, "registration/edit.html", context)
-
-# # update the database  
 def EditView(request):
 
 	if not request.user.is_authenticated:
@@ -132,3 +103,6 @@ def EditView(request):
 			)
 	context['account_form'] = form
 	return render(request, "registration/edit.html", context)
+
+def blockedView(request):
+	return render(request, "registration/blocked.html", {})
