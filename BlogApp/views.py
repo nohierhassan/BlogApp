@@ -2,23 +2,28 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login as authlogin
-from .models import Post
+from .models import *
 from django.db.models import Q 
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
+from django.contrib.auth.models import User
+User = settings.AUTH_USER_MODEL
 # Create your views here.
 
 def home(request):
 
 	# query: get all posts
 	topPosts= Post.objects.all().order_by('postDatePublished')[:5] 
-	
+	all_categories= Category.objects.all()
+	sub_cat=Category.objects.filter(userId=request.user)
+
 	# query: get count of comments
 
 	# query to get path of image or image name 
 	
 
 	context ={
-	"topPosts": topPosts
+	"topPosts": topPosts, "all_categories":all_categories, "sub_cat":sub_cat
+
 	}
 	return render(request ,'BlogApp/index.html' , context)
 
@@ -105,7 +110,21 @@ def login(request):
 
 def showpost(request,num):
 	post=Post.objects.get(pk=num)
+	
+
 	return render(request,'post/post.html',{'post':post})
+	
+def subscribe(request, numb):
+	subcat = Category.objects.get(categoryId=numb)
+
+	if request.POST.get('subscribe') == '0':
+	   subcat.userId.remove(request.user)
+	else:
+		subcat.userId.add(request.user)
+
+	return HttpResponseRedirect('/blog/home')
+	
+
 
 
 	

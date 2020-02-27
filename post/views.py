@@ -23,14 +23,12 @@ def category(request):
 
 def post(request, post_id):
     all_categories= Category.objects.all()
-    post=Post.objects.get(postId = post_id)
+    post=get_object_or_404(Post,pk=post_id)
     all_Tags= Tag.objects.all()
+
 
     is_liked=None
     like = Likes.objects.filter(pId=post.postId)
-
-    post_likes = Likes.objects.filter(likes = True).count()
-    post_dislikes = Likes.objects.filter(likes = False).count()
 
     if request.user.is_authenticated:
         like = Likes.objects.filter(pId=post, User=request.user.id)
@@ -58,6 +56,7 @@ def post(request, post_id):
                 is_liked=False
 
 
+
     comments=Comment.objects.filter(postId=post.postId , reply=None)
     if request.method =='POST':
         comment_form=CommentForm(request.POST or None)
@@ -80,10 +79,12 @@ def post(request, post_id):
     'all_Tags':all_Tags,
     'category':category,
     'comments': comments,
+
     'is_liked': is_liked, 
     'post_likes': post_likes, 
     'post_dislikes': post_dislikes,
     'comment_form': comment_form,
+
 
 
     }
