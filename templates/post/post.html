@@ -81,11 +81,29 @@
   {% endif %}
 </form>
 {% endif %} -->
-<form method="POST" action="">
+<!-- <form method="POST" action="">
   {% csrf_token %}
   <button type="submit" name="like" value="like" class="btn btn-danger"><i class="fa fa-thumbs-o-up"></i> Like</button>
   <button type="submit" name="dislike" value="dislike" class="btn btn-outline-primary"><i class="fa fa-thumbs-o-down"></i> Dislike</button>
-</form>
+</form> -->
+<div>
+     <span>Likes: {{ post_likes }}</span><br>
+            <span>Dislikes: {{ post_dislikes }}</span>
+            <form method="post" action="/post/post/like/{{post.postId}}/">
+                {% csrf_token %}  
+                {% if is_liked == None %}
+                  <input type="hidden" name="like" value="0">
+                  <button type="submit" class= "btn btn-outline-danger ">Dislike</button>
+                {% endif %}
+            </form>
+            <form method="post" action="/post/post/like/{{post.postId}}/">
+                {% csrf_token %}
+                {% if is_liked == None %}
+                  <input type="hidden" name="like" value="1">
+                  <button type="submit" class= "btn btn-outline-primary ">Like</button>
+                {% endif %}
+            </form>
+        </div>
 
 
 
