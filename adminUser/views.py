@@ -185,7 +185,7 @@ def isAdmin(request, num):
 	us.save()
 	return HttpResponseRedirect('/adminUser/users/') 
 @admin_only
-def blocked(request, num):
+def blocked(request, num):  
 	us = ExtendedUser.objects.get(id = num)
 	us.is_blocked = True
 	us.save()
