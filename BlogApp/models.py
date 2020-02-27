@@ -55,6 +55,7 @@ class Comment(models.Model):
     commentContent      = models.CharField(max_length=150)
     commentDate         = models.DateTimeField(auto_now=True, auto_now_add=False)
     commentAuthor       = models.ForeignKey(User, on_delete=models.CASCADE)
+    reply               = models.ForeignKey('self',null=True,related_name='replies',on_delete= models.CASCADE)
   
    # class Meta:
      #   ordering = ['commentDate']

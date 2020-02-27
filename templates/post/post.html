@@ -2,6 +2,7 @@
 <html lang="en">
 {%block main_block %}
 {% load static %}
+
   <head>
     <title>{{post.postTitle}}</title>
     <meta charset="utf-8">
@@ -80,35 +81,55 @@
 <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- COMMENTS  -->
 		            <div class="pt-5 mt-5">
-		              <h3 class="mb-5 font-weight-bold">{{comments.count}} Comment{{comments.count|pluralize }}</h3>
-		              <ul class="comment-list">
-{% for comment in comments %}
-		                <li class="comment">
-		                  <div class="vcard bio">
-		                    <img src="{% static '/images/comments.png' %}" alt="Image placeholder">
-		                  </div>
-		                  <div class="comment-body">
-		                    <h3>{{comment.commentAuthor}}</h3> <!-- COMMENT WRITER -->
-		                    <div class="meta">{{ comment.commentDate }}</div><!--  COMMENT DATE AND TIME  -->
-		                    <p>{{comment.commentContent}}</p><!--  COMMENT CONTENT -->
-		                    <p><a href="#" class="reply">Reply</a></p>
-		                  </div>
-		                </li>
-  {% endfor %}
-		              </ul>
-<!-- END comment-list -->
-<!-- ///////////////////////////////////////////////////////////////////////////////////////////////// -->
-
-<!-- LEAVE A COMMENT  -->
- <div class="card-body">
-        <h3>Leave a comment</h3>
-        <form method="post" style="margin-top: 1.3em;">
-          {{ comment_form.as_p }}
-          {% csrf_token %}
-          <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
-        </form>
-      </div>
-      </div>
+						<section>
+							<div class="container ">
+									<h3 class="mb-5 font-weight-bold">{{comments.count}} comment{{comments.count|pluralize}}</h3>
+									{% for comment in comments %}
+									<blockquote class="blockquote">
+									  <p> {{ comment.commentContent }}</p>
+									  <footer class="blockquote-footer"><cite title="Source Title">{{comment.commentAuthor |capfirst}}</cite>
+										<div>on : <span> {{comment.commentDate}}</span></div>
+									</footer> 
+								   </blockquote>
+									
+								   <div class="container mt-2">
+									{% for reply in comment.replies.all %}
+									   <blockquote class="blockquote">
+										<p><small> {{reply.commentContent}}</small></p>
+										<footer class="blockquote-footer"><small> by  <cite title="Source Title">{{reply.commentAuthor |capfirst}}</cite></small>
+										<div>on : <span> {{reply.commentDate}}</span></div>
+										</footer>
+									   </blockquote>
+							{% endfor %}
+									   <div class="row mb-4 ">
+										<form method="POST">
+											{% csrf_token %}
+											<input type="hidden" name='comment_id' value= '{{comment.commentId}}'>
+											{{ comment_form.as_p }}
+											{% if request.user.is_authenticated %}
+												<input type="submit" value="Reply" class="btn btn-outline-info mr-sm-4 ">
+											{% else %}
+												<input type="submit" value="Reply" class="btn btn-outline-info mr-sm-4 " disabled>
+											{% endif %}
+										</form>
+									   </div>
+								   </div>
+						{% endfor %}
+								   
+										<form method="POST">
+								  
+											{% csrf_token %}
+											{{ comment_form.as_p }}
+											{% if request.user.is_authenticated %}
+											<input type="submit" value="Comment" class="btn btn-outline-info mr-sm-4 ">
+											{% else %}
+											<input type="submit" value="Comment" class="btn btn-outline-info mr-sm-4 " disabled>
+											{% endif %}
+										</form>
+								  
+									 </div>
+						</section>
+      				</div>
 			    		</div><!-- END-->
 			    	</div>
 <!-- /////////////////////////////////////////////////////////////////////////////////////////////// -->

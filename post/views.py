@@ -19,33 +19,42 @@ def category(request):
 	return render (request,'post/category.html',context)
 
 def post(request, post_id):
-	all_categories= Category.objects.all()
-	post=Post.objects.get(postId = post_id)
-	all_Tags= Tag.objects.all()
-	comments = Comment.objects.filter(postId=post.postId)
-	new_comment = None
+    all_categories= Category.objects.all()
+    post=get_object_or_404(Post,pk=post_id)
+    all_Tags= Tag.objects.all()
+	# is_liked = False
+	# if post.likes.filter(id=request.User.id).exists():
+	# 	is_liked = True
+    comments=Comment.objects.filter(postId=post.postId , reply=None)
+    if request.method =='POST':
+        comment_form=CommentForm(request.POST or None)
+        if comment_form.is_valid():
+            content=request.POST.get('commentContent')
+            reply_id=request.POST.get('comment_id')
+            comment_qs=None
+            if reply_id:
+                comment_qs=Comment.objects.get(commentId=reply_id)
+            comment=Comment.objects.create(postId=post,commentAuthor=request.user , commentContent=content , reply=comment_qs)
+            comment.save()
+            comment_form = CommentForm()
 
-	if request.method == 'POST':
-		comment_form = CommentForm(data=request.POST)
-		if comment_form.is_valid():		
-			new_comment = comment_form.save(commit=False)
-			new_comment.commentAuthor = request.user 
-			new_comment.postId = post  
-			new_comment.save()
-	else:
-		comment_form = CommentForm()
+    else : 
+        comment_form=CommentForm()  
 
+    context={
+    'post':post,
+    'all_categories':all_categories,
+    'all_Tags':all_Tags,
+    'category':category,
+    'comments': comments,
+    # 'new_comment': new_comment,
+    'comment_form': comment_form,
+# 'is_liked':is_liked,
+# 'total_likes':post.total_likes(),
 
-	context={
-	'post':post,
-	'all_categories':all_categories,
-	'all_Tags':all_Tags,
-	'category':category,
-	'comments': comments,
-	'new_comment': new_comment,
-	'comment_form': comment_form
-	}
-	return render (request,'post/post.html',context)
+    }
+    return render (request,'post/post.html',context)
+
 
 def category_detail(request, cat_id):
     category = get_object_or_404(Category,pk=cat_id)
