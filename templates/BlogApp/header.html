@@ -1,59 +1,30 @@
 {% comment %} {% comment %} <h1>header</h1>
 {% comment %} NAVBAR SECTION {% endcomment %}
-{% if user.is_authenticated %}
-
-    
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand">BlogApp</a>
+ <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand">Blog App</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="index.html">Home <span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="/blog/login">Log Out</a>
-      {% comment %} <a class="nav-item nav-link" href="/blog/register">register</a> {% endcomment %}
-      {% comment %} <a class="nav-item nav-link disabled" href="#">Disabled</a> {% endcomment %}
-    </div>
-  </div>
-</nav>
-{% elif user.is_superuser %}
-
-     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-     <a class="navbar-brand">BlogApp</a>
-     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-     <span class="navbar-toggler-icon"></span>
-     </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="index.html">Home <span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="/blog/login">Log Out</a>
-      <a class="nav-item nav-link" href="/admin">Manage</a>
-      {% comment %} <a class="nav-item nav-link disabled" href="#">Disabled</a> {% endcomment %}
+      <!-- <a class="nav-item nav-link active" href="blog/home/">Home <span class="sr-only">(current)</span></a> -->
+      {% if request.user.is_authenticated %}
+       <a class="nav-item nav-link">Hello, {{request.user.username}}</a> 
+      <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a> 
+      <a class="nav-item nav-link" href="{% url 'edit' %}">Edit Profile</a> 
+      {% else %}
+      <a class="nav-item nav-link" href="{% url 'edit' %}">Register</a> 
+      <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+      {% endif %}
+      {% if request.user.is_admin %}
+      <a class="nav-item nav-link" href="{% url 'adminhome' %}">Manage Blog</a>
+      {% endif %}
     </div>
   </div>
 </nav>
 
-{% else %}
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand">BlogApp</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="index.html">Home <span class="sr-only">(current)</span></a>
-      
-      <a class="nav-item nav-link" href="/blog/login">Sign in</a>
-      <a class="nav-item nav-link" href="/blog/register">register</a>
-      {% comment %} <a class="nav-item nav-link disabled" href="#">Disabled</a> {% endcomment %}
-    </div>
-  </div>
-</nav>
-
-{% endif %} 
-{% if request.user.is_authenticated %}
+<!-- {% if request.user.is_authenticated %}
 	<p>Hello, {{request.user.username}} | 
 	<a href="{% url 'logout' %}">Logout</a>
 	<a href="{% url 'edit' %}">Edit Profile</a>
@@ -61,4 +32,4 @@
 
 	{% else %}
 	<p><a href="{% url 'register' %}">Register</a> | <a href="{% url 'login' %}">Login</a></p>
-	{% endif %}
+	{% endif %} -->
