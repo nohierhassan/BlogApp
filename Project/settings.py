@@ -138,3 +138,15 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static_cdn')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # to redirect the user to the home page after login
 LOGIN_REDIRECT_URL = '/blog/home'
+
+# EMAIL_USE_TLS= True
+# EMAIL_HOST = ''
+# EMAIL_HOST_USER=''
+# EMAIL_HOST_PASSWORD =''
+# EMAIL_PORT = 587
+
+
+
+# import ...
+
+# BASE_DIR = os.path.dirname(od.path.dirname(os.path.abxpath(file)))
