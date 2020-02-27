@@ -3,6 +3,7 @@
 {% block main_block %}
 {% load static %}
 {% include 'BlogApp/side_bar.html' %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -39,24 +40,6 @@
 
   <body>
 	
-
-
-  {% comment %} <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="#">Features</a>
-      <a class="nav-item nav-link" href="#">Pricing</a>
-	  <a class="nav-item nav-link" href="#">{{name}}</a>
-	   <a class="nav-item nav-link" href="#">{{result}}</a>
-      <a class="nav-item nav-link disabled" href="#">Disabled</a>
-    </div>
-  </div>
-</nav> {% endcomment %}
 
 
 
@@ -111,9 +94,9 @@
 						{% comment %} <h1>INSIDE TEMPLATES --  {{topPostws}}</h1> {% endcomment %}
 								{% for eachPost in topPosts %}
 			    			<div class="col-md-12">
-									<div class="blog-entry ftco-animate d-md-flex">
-										<a href="blog/post/post{{eachPost.postId}}" class="img img-2">
-										<img src={{eachPost.image.url}}></a>
+									<div class="img-fluid">
+										<a href="/../../post/post/{{eachPost.postId}}" class="img img-2">
+										<img src={{eachPost.postImage.url}}></a>
 										<div class="text text-2 pl-md-4">
 
 									
@@ -121,13 +104,12 @@
 				              <div class="meta-wrap">
 												<p class="meta">
 				              		<span><i class="icon-calendar mr-2"></i>{{eachPost.postDatePublished}}</span>
-				              		{% comment %} <span><a href="single.html"><i class="icon-folder-o mr-2"></i>Travel</a></span> {% endcomment %}
-				              		<span><i class="icon-comment2 mr-2"></i>5 Comment</span>
-				              	</p>
+				              					              	</p>
+
 			              	</div>
-				              <p class="mb-4">{{eachPost.PostBody}}</p>
+				              <p class="mb-4">{{eachPost.postBody}}</p>
 				              
-							  <p><a href="#" class="btn-custom">Read More <span class="ion-ios-arrow-forward"></span></a></p>
+							  <p><a href="/../../post/post/{{eachPost.postId}}" class="btn-custom">Read More <span class="ion-ios-arrow-forward"></span></a></p>
 				            	</div>
 									</div>
 						
@@ -150,107 +132,82 @@
 	                </div>
 	              </form>
 	            </div>
+
+
+					 {% comment %} <div class="sidebar-box ftco-animate">
+	            	<h3 class="sidebar-heading">Categories</h3>
+	              <ul class="categories">
+	                <li><a href="#">Fashion <span>(6)</span></a></li>
+	                <li><a href="#">Technology <span>(8)</span></a></li>
+	                <li><a href="#">Travel <span>(2)</span></a></li>
+	                <li><a href="#">Food <span>(2)</span></a></li>
+	                <li><a href="#">Photography <span>(7)</span></a></li>
+	              </ul>
+	            </div> {% endcomment %}
+
+
+
+						 {% comment %} </div> {% endcomment %}
+
+
+
+{% comment %} 
 	            <div class="sidebar-box ftco-animate">
 	            	<h3 class="sidebar-heading">Categories</h3>
 	              <ul class="categories">
-	                <li><a href="#">Fashion <span>(6)</span></a> <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false">
-  					 Single toggle
+	              	{% for category in all_categories %}
 
-					 </button></li>
-
-	                <li><a href="#">Technology <span>(8)</span></a><button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false">
-					  Single toggle
-					</button></li>
-
-	                <li><a href="#">Travel <span>(2)</span></a><button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false">
-      					Single toggle
-						</button></li>
-
-	                <li><a href="#">Food <span>(2)</span></a><button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false">
- 						 Single toggle
-						</button></li>
-
-	                <li><a href="#">Photography <span>(7)</span></a></li>
-				
+	                <li><a href="{% url ">{{category.name}}"</a></li>
+	                {% endfor %}
+	              
 	              </ul>
 	            </div>
+				 {% endcomment %}
 
-				
 
-	            {% comment %} <div class="sidebar-box ftco-animate">
-	              <h3 class="sidebar-heading">Popular Articles</h3>
-	              <div class="block-21 mb-4 d-flex">
-	                <a class="blog-img mr-4" style="background-image: url('{%static 'images/image_1.jpg' %}');"></a>
-	                <div class="text">
-	                  <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control</a></h3>
-	                  <div class="meta">
-	                    <div><a href="#"><span class="icon-calendar"></span> June 28, 2019</a></div>
-	                    <div><a href="#"><span class="icon-person"></span> Dave Lewis</a></div>
-	                    <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-	                  </div>
-	                </div>
-	              </div>
-	              <div class="block-21 mb-4 d-flex">
-	                <a class="blog-img mr-4" style="background-image: url('{%static 'images/image_2.jpg' %}');"></a>
-	                <div class="text">
-	                  <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control</a></h3>
-	                  <div class="meta">
-	                    <div><a href="#"><span class="icon-calendar"></span> June 28, 2019</a></div>
-	                    <div><a href="#"><span class="icon-person"></span> Dave Lewis</a></div>
-	                    <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-	                  </div>
-	                </div>
-	              </div>
-	              <div class="block-21 mb-4 d-flex">
-	                <a class="blog-img mr-4" style="background-image: url('{%static 'images/image_3.jpg' %}');"></a>
-	                <div class="text">
-	                  <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control</a></h3>
-	                  <div class="meta">
-	                    <div><a href="#"><span class="icon-calendar"></span> June 28, 2019</a></div>
-	                    <div><a href="#"><span class="icon-person"></span> Dave Lewis</a></div>
-	                    <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-	                  </div>
-	                </div>
-	              </div>
-	            </div> {% endcomment %}
+
+
+
+						
 
 	            <div class="sidebar-box ftco-animate">
-	              <h3 class="sidebar-heading">Tag Cloud</h3>
-	              <ul class="tagcloud">
-	                <a href="#" class="tag-cloud-link">animals</a>
-	                <a href="#" class="tag-cloud-link">human</a>
-	                <a href="#" class="tag-cloud-link">people</a>
-	                <a href="#" class="tag-cloud-link">cat</a>
-	                <a href="#" class="tag-cloud-link">dog</a>
-	                <a href="#" class="tag-cloud-link">nature</a>
-	                <a href="#" class="tag-cloud-link">leaves</a>
-	                <a href="#" class="tag-cloud-link">food</a>
-	              </ul>
-	            </div>
-
-							<div class="sidebar-box subs-wrap img py-4" style="background-image: url('{%static 'images/bg_1.jpg);"' %}'>
-								<div class="overlay"></div>
-								<h3 class="mb-4 sidebar-heading">Newsletter</h3>
-								<p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia</p>
-	              <form action="#" class="subscribe-form">
-	                <div class="form-group">
-	                  <input type="text" class="form-control" placeholder="Email Address">
-	                  <input type="submit" value="Subscribe" class="mt-2 btn btn-white submit">
-	                </div>
-	              </form>
-	            </div>
-
-	            {% comment %} <div class="sidebar-box ftco-animate">
-	            	<h3 class="sidebar-heading">Archives</h3>
+	            	<h3 class="sidebar-heading">Categories</h3>
 	              <ul class="categories">
-	              	<li><a href="#">Decob14 2018 <span>(10)</span></a></li>
-	                <li><a href="#">September 2018 <span>(6)</span></a></li>
-	                <li><a href="#">August 2018 <span>(8)</span></a></li>
-	                <li><a href="#">July 2018 <span>(2)</span></a></li>
-	                <li><a href="#">June 2018 <span>(7)</span></a></li>
-	                <li><a href="#">May 2018 <span>(5)</span></a></li>
+                     {% for cat in all_categories%}
+
+	                <li><a href="../../post/category/{{cat.categoryId}}">{{cat.categoryName}} </a> 
+
+
+							
+
+						<form method="POST" action="/blog/home/{{cat.categoryId}}">
+
+						{% csrf_token %}
+						{% if cat in sub_cat %}
+						 
+						 <input type="hidden" name="subscribe" value="0">
+						 <button class="btn btn-danger text-white ml-sm-5">Unsubscribe </button>
+
+						 {% else %}
+						  
+							<input type="hidden" name="subscribe" value="1">
+						   <button class="btn btn-primary text-white ml-sm-5">Subscribe </button>
+
+							{% endif %}
+
+						</form>
+						</li>
+						 
+						 {% endfor %}
+
+
+				
 	              </ul>
-	            </div> {% endcomment %}
+	            </div>
+
+				
+
+	            
 
 
 	            <div class="sidebar-box ftco-animate">
