@@ -41,12 +41,15 @@ class Post(models.Model):
     postDateUpdated             = models.DateTimeField(auto_now=True, verbose_name="date updated")
     postAuthor                  = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     postCategory                = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
-    likes                       = models.ManyToManyField(Likes,blank=True)
+    # likes                       = models.ManyToManyField(Likes,blank=True)
    # postSlug                    = models.SlugField(blank=True, unique=True)
     postTag                     = models.ManyToManyField(Tag, blank=True)
 
     def __str__(self):
         return self.postTitle
+
+    def snippet(self):
+        return self.postBody[:200]+"....."
         
 
 class Comment(models.Model):
@@ -55,6 +58,7 @@ class Comment(models.Model):
     commentContent      = models.CharField(max_length=150)
     commentDate         = models.DateTimeField(auto_now=True, auto_now_add=False)
     commentAuthor       = models.ForeignKey(User, on_delete=models.CASCADE)
+    reply               = models.ForeignKey('self',null=True,related_name='replies',on_delete= models.CASCADE)
   
     class Meta:
         ordering = ['commentDate']
