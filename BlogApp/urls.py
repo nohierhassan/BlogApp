@@ -17,14 +17,12 @@ urlpatterns = [
     path('home/search/',views.search),
     
     path('post/post/<num>',views.showpost),
-<<<<<<< HEAD
-=======
+
 
     path('home/<numb>',views.subscribe),  
     #path('home/sub/',views.subscribe),
     # path('register/', views.register,name = 'register'),	
     #path('login/', views.login),	
->>>>>>> subscribe
 
 	path('blocked/', views.blocked,name="blocked"),
 ]
