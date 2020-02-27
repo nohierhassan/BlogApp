@@ -14,7 +14,7 @@ class WordForm(forms.ModelForm):
 class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
-        fields = ('categoryName','userId')
+        fields = ('categoryName',)
         widgets = {
                     'categoryName' : forms.TextInput( attrs={'class': 'form-control '}),
                     }
