@@ -10,7 +10,7 @@ from django.http import HttpResponse
 def home(request):
 
 	# query: get all posts
-	topPosts= Post.objects.all().order_by('date')[:5] 
+	topPosts= Post.objects.all().order_by('postDateUpdated')[:5] 
 	
 	# query: get count of comments
 
@@ -109,7 +109,7 @@ def showpost(request,num):
 
 
 	
-# def toggle(request):
+# def subscribe(request):
 #     w = user.objects.get(id=request.POST['id'])
 #     w.is_working = request.POST['isworking'] == 'true'
 #     w.save()
