@@ -15,7 +15,6 @@ urlpatterns = [
     path('login/', views.login),	
     
     path('home/search/',views.search),
-    
     path('post/post/<num>',views.showpost),
 
 
