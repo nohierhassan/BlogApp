@@ -115,6 +115,7 @@ def addPost(request):
 			newForm = post_form.save(commit=False)
 			newForm.postAuthor = request.user
 			newForm.save()
+			post_form.save()
 			return HttpResponseRedirect('/adminUser/posts/')
 	else:
 		context = {'post_form': post_form}
