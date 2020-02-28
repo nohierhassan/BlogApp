@@ -20,8 +20,8 @@ from django.conf import settings
 from AccountsApp.views import registration_view
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('blog/', include('BlogApp.urls')),
+    # path('admin/', admin.site.urls),
+    path('', include('BlogApp.urls')),
     path('post/', include('post.urls')),
     path('accounts/', include('AccountsApp.urls')),
     path('adminUser/', include('adminUser.urls')),

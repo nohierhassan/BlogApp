@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 {%block main_block %}
+{%include 'BlogApp/header.html'%}
+
 {% load static %}
 {% load profanity %}
 
@@ -32,6 +34,7 @@
 <!-- //////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
   <body>
+
     <div id="colorlib-main">
       <section class="ftco-section ftco-no-pt ftco-no-pb">
         <div class="container">
@@ -41,7 +44,7 @@
 
 
               <!-- POST: -->
-        <div>
+      <div>
         <h1 class="mb-3">{{post.postTitle}}</h1> <!-- POST TITLE -->
 
         <h5>{{post.postCategory.categoryName}}</h5>   <!-- Category  -->
@@ -65,88 +68,86 @@
                 </div>
 
 
+   
+
 <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
 <!-- LIKE AND DISLIKE -->
 
 <div>
      
-            <span >Likes: {{ post_likes }}</span><br> <br>
-            <span>Dislikes: {{ post_dislikes }}</span>
-            <form method="post" action="/post/post/like/{{post.postId}}/">
-                {% csrf_token %}  
-                {% if is_liked == None %}
-                  <input type="hidden" name="like" value="0">
+  <span >Likes: {{ post_likes }}</span><br> <br>
+  <span>Dislikes: {{ post_dislikes }}</span>
+  <form method="post" action="/post/post/like/{{post.postId}}/">
+      {% csrf_token %}  
+      {% if is_liked == None %}
+        <input type="hidden" name="like" value="0">
 
-                  <button type="submit" class="btn btn-outline-dark"><i class="fa fa-thumbs-o-down"></i> Dislike</button>
-                {% endif %}
-            </form>
-            <form method="post" action="/post/post/like/{{post.postId}}/">
-                {% csrf_token %}
-                {% if is_liked == None %}
-                  <input type="hidden" name="like" value="1">
-                  <button type="submit" class="btn btn-outline-danger"><i class="fa fa-thumbs-o-up"></i> Like</button>
-                {% endif %}
-            </form>
- </div>
-
-
-
+        <button type="submit" class="btn btn-outline-dark"><i class="fa fa-thumbs-o-down"></i> Dislike</button>
+      {% endif %}
+  </form>
+  <form method="post" action="/post/post/like/{{post.postId}}/">
+      {% csrf_token %}
+      {% if is_liked == None %}
+        <input type="hidden" name="like" value="1">
+        <button type="submit" class="btn btn-outline-danger"><i class="fa fa-thumbs-o-up"></i> Like</button>
+      {% endif %}
+  </form>
+</div>
 <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- COMMENTS  -->
-		            <div class="pt-5 mt-5">
-						<section>
-							<div class="container ">
-									<h3 class="mb-5 font-weight-bold">{{comments.count}} comment{{comments.count|pluralize}}</h3>
-						{% for comment in comments %}
-									<blockquote class="blockquote">
-									  <p> {{ comment.commentContent|censor}}</p>
-									  <footer class="blockquote-footer">Comment by:<cite title="Source Title">{{comment.commentAuthor |capfirst}}</cite>
-										<div><span> {{comment.commentDate}}</span></div>
-									</footer> 
-								   </blockquote>
-						      			
-								   <div class="container mt-2">
-						       {% for reply in comment.replies.all %}
-									   <blockquote class="blockquote">
-										<p><small> {{reply.commentContent|censor}}</small></p>
-										<footer class="blockquote-footer"><small> Reply by:  <cite title="Source Title">{{reply.commentAuthor |capfirst}}</cite></small>
-										<div> <span> {{reply.commentDate}}</span></div>
-										</footer>
-									   </blockquote>
-							     {% endfor %}
-									   <div class="row mb-4 ">
-										<form method="POST">
-											{% csrf_token %}
-											<input type="hidden" name='comment_id' value= '{{comment.commentId}}'>
-											{{ comment_form.as_p }}
-											{% if request.user.is_authenticated %}
-												<input type="submit" value="Reply" class="btn btn-outline-info mr-sm-4 ">
-											{% else %}
-												<input type="submit" value="Reply" class="btn btn-outline-info mr-sm-4 " disabled>
-											{% endif %}
-										</form>
-									   </div>
-
-						{% endfor %}
-								   
-										<form method="POST">
-								  
-											{% csrf_token %}
-											{{ comment_form.as_p }}
-											{% if request.user.is_authenticated %}
-											<input type="submit" value="Comment" class="btn btn-outline-info mr-sm-4 ">
-											{% else %}
-											<input type="submit" value="Comment" class="btn btn-outline-info mr-sm-4 " disabled>
-											{% endif %}
-										</form>
-								  </div>
-									</div>
-						</section>
-      				</div>
-			    		</div><!-- END-->
-			    	</div>
-
+                <div class="pt-5 mt-5">
+            <section>
+              <div class="container ">
+                  <h3 class="mb-5 font-weight-bold">{{comments.count}} comment{{comments.count|pluralize}}</h3>
+                  {% for comment in comments %}
+                  <blockquote class="blockquote">
+                    <p> {{ comment.commentContent|censor}}</p>
+                    <footer class="blockquote-footer"><cite title="Source Title">{{comment.commentAuthor |capfirst}}</cite>
+                    <div>on : <span> {{comment.commentDate}}</span></div>
+                  </footer> 
+                   </blockquote>
+                  
+                   <div class="container mt-2">
+                  {% for reply in comment.replies.all %}
+                     <blockquote class="blockquote">
+                    <p><small> {{reply.commentContent|censor}}</small></p>
+                    <footer class="blockquote-footer"><small> by  <cite title="Source Title">{{reply.commentAuthor |capfirst}}</cite></small>
+                    <div>on : <span> {{reply.commentDate}}</span></div>
+                    </footer>
+                     </blockquote>
+              {% endfor %}
+                     <div class="row mb-4 ">
+                    <form method="POST">
+                      {% csrf_token %}
+                      <input type="hidden" name='comment_id' value= '{{comment.commentId}}'>
+                      {{ comment_form.as_p }}
+                      {% if request.user.is_authenticated %}
+                        <input type="submit" value="Reply" class="btn btn-outline-info mr-sm-4 ">
+                      {% else %}
+                        <input type="submit" value="Reply" class="btn btn-outline-info mr-sm-4 " disabled>
+                      {% endif %}
+                    </form>
+                     </div>
+                   </div>
+            {% endfor %}
+                   
+                    <form method="POST">
+                  
+                      {% csrf_token %}
+                      {{ comment_form.as_p }}
+                      {% if request.user.is_authenticated %}
+                      <input type="submit" value="Comment" class="btn btn-outline-info mr-sm-4 ">
+                      {% else %}
+                      <input type="submit" value="Comment" class="btn btn-outline-info mr-sm-4 " disabled>
+                      {% endif %}
+                    </form>
+                  
+                   </div>
+            </section>
+              </div>
+              </div><!-- END-->
+            </div>
 <!-- /////////////////////////////////////////////////////////////////////////////////////////////// -->
 
 <!-- SIDE BAR -->
@@ -175,7 +176,7 @@
                 <h3 class="sidebar-heading">Tags</h3>
                 <ul class="tagcloud">
                   {% for tag in all_Tags %}
-                    <a href="#" class="tag-cloud-link">{{tag}}</a>
+                  <a href="#" class="tag-cloud-link">{{tag.tagName}}</a>
                   {% endfor %}
                 </ul>
               </div>
@@ -211,8 +212,6 @@
   </body>
 
 </html>
-
-
 
 
 
