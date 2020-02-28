@@ -17,7 +17,7 @@ def home(request):
 	all_categories= Category.objects.all()
 	sub_cat=Category.objects.filter(userId=request.user)
 
-	context = {"topPosts": topPosts, "all_categories":all_categories}
+	context = {"topPosts": topPosts, "all_categories":all_categories, "sub_cat":sub_cat}
 	return render(request ,'BlogApp/index.html' , context)
 
 

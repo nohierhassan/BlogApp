@@ -17,7 +17,6 @@ urlpatterns = [
     path('home/search/',views.search),
     path('post/post/<num>',views.showpost),
 
-
     path('home/<numb>',views.subscribe),  
     #path('home/sub/',views.subscribe),
     # path('register/', views.register,name = 'register'),	
