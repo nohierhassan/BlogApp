@@ -13,18 +13,19 @@ def home(request):
 
 	# query: get all posts
 	topPosts= Post.objects.all().order_by('postDatePublished')[:5] 
-	all_categories= Category.objects.all()
-	sub_cat=Category.objects.filter(userId=request.user)
+	# all_categories= Category.objects.all()
+	# sub_cat=Category.objects.filter(userId=request.user)
 
 	# query: get count of comments
 
 	# query to get path of image or image name 
 	
 
-	context ={
-	"topPosts": topPosts, "all_categories":all_categories, "sub_cat":sub_cat
+	# context ={
+	# "topPosts": topPosts, "all_categories":all_categories, "sub_cat":sub_cat
 
-	}
+	# }
+	context = {"topPosts": topPosts}
 	return render(request ,'BlogApp/index.html' , context)
 
 
