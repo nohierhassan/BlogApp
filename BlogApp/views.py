@@ -6,26 +6,21 @@ from .models import *
 from django.db.models import Q 
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 User = settings.AUTH_USER_MODEL
 # Create your views here.
-
+# @login_required
 def home(request):
 
 	# query: get all posts
-	topPosts= Post.objects.all().order_by('postDatePublished')[:5] 
+	topPosts= Post.objects.all().order_by('-postDatePublished')[:5] 
 	all_categories= Category.objects.all()
-	sub_cat=Category.objects.filter(userId=request.user)
+	sub_cat=Category.objects.filter(userId=request.user.id)
 
-	# query: get count of comments
-
-	# query to get path of image or image name 
-	
-
-	context ={
-	"topPosts": topPosts, "all_categories":all_categories, "sub_cat":sub_cat
-
-	}
+	context = {"topPosts": topPosts, "all_categories":all_categories, "sub_cat":sub_cat}
+	# context = {"topPosts": topPosts, "all_categories":all_categories}
 	return render(request ,'BlogApp/index.html' , context)
+
 
 
 def post(request,id):
@@ -47,19 +42,13 @@ def post(request,id):
 	return render(request,'BlogApp/post.html',context)
 
 def search(request):
-	query = request.GET.get("query")
+	query = request.GET.get("q")
 	#qs = Post.objects.all()
 	if query :
 		qs = Post.objects.filter(
-			Q(postTitle__icontains=query)|Q(postTag__tagName__icontains=query) 
+			Q(title__icontains=query)
 
 		).distinct()
-			
-		# ts =Tag.objects.filter(
-		# 	Q(tagname__icontains=query)
-
-		# ).distinct() 
-
 	
 
 	context = {
@@ -67,6 +56,7 @@ def search(request):
 	}
 
 	return render(request,'BlogApp/post.html',context)
+
 
 
 def category(request):
@@ -114,6 +104,15 @@ def showpost(request,num):
 
 	return render(request,'post/post.html',{'post':post})
 	
+# def subscribe(request, numb):
+# 	subcat = Category.objects.get(categoryId=numb)
+
+# 	if request.POST.get('subscribe') == '0':
+# 	   subcat.userId.remove(request.user)
+# 	else:
+# 		subcat.userId.add(request.user)
+
+# 	return HttpResponseRedirect('/blog/home')
 def subscribe(request, numb):
 	subcat = Category.objects.get(categoryId=numb)
 
