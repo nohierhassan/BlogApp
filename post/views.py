@@ -27,21 +27,16 @@ def post(request, post_id):
     all_Tags= Tag.objects.all()
     is_liked=None
     like = Likes.objects.filter(post_id=post.postId)
-
+    post_likes = like.filter(like = True).count()
+    post_dislikes = like.filter(like = False).count()
     if request.user.is_authenticated:
         like = Likes.objects.filter(post_id=post, userId=request.user.id)
 
         if like.exists():
-            if like.get().like== False:
+            if like.get().like == True:
                 is_liked=True
             else:
                 is_liked=False
-
-    post_likes = like.filter(like = True).count()
-    post_dislikes = like.filter(like = False).count()
-
-
-
 
     comments=Comment.objects.filter(postId=post.postId , reply=None)
     if request.method =='POST':
@@ -65,7 +60,6 @@ def post(request, post_id):
     'all_Tags':all_Tags,
     'category':category,
     'comments': comments,
-
     'is_liked': is_liked, 
     'post_likes': post_likes, 
     'post_dislikes': post_dislikes,
@@ -95,12 +89,12 @@ def like(request,post_id):
         else:
             Likes.objects.create(post_id=post, userId=request.user, like = False)
 
-        like = Likes.objects.filter(post_id=post, like = 0)
-
-        if like.count() >= 10:
-            like.delete()
+        dislike = Likes.objects.filter(post_id=post, like = False)
+        if dislike.count() >= 10:
+            # dislike.delete()
             post.delete()
 
+            return HttpResponseRedirect('/blog/home/')
 
     return HttpResponseRedirect('/post/post/' + post_id)
 

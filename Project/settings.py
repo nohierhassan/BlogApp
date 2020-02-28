@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'adminUser',
     'AccountsApp',
     'post',
+    'profanity',
     
 ]
 
