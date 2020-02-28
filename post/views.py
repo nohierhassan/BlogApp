@@ -7,6 +7,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 
+from django.contrib.auth.decorators import login_required
 from BlogApp.models import Post,Category,Tag,Comment,Likes
 from AccountsApp.models import ExtendedUser
 from django.conf import settings
@@ -84,7 +85,7 @@ def category_detail(request, cat_id):
         'category': category,
         'post':post,
     })
-
+@login_required
 def like(request,post_id):
 
     if not Likes.objects.filter(post_id=post_id, userId=request.user.id).exists():

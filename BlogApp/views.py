@@ -6,15 +6,16 @@ from .models import *
 from django.db.models import Q 
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 User = settings.AUTH_USER_MODEL
 # Create your views here.
-
+@login_required
 def home(request):
 
 	# query: get all posts
 	topPosts= Post.objects.all().order_by('-postDatePublished')[:5] 
 	all_categories= Category.objects.all()
-	#sub_cat=Category.objects.filter(userId=request.user)
+	sub_cat=Category.objects.filter(userId=request.user)
 
 	context = {"topPosts": topPosts, "all_categories":all_categories}
 	return render(request ,'BlogApp/index.html' , context)
